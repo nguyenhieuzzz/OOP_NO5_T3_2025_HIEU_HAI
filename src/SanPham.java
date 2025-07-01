@@ -4,7 +4,7 @@ public class SanPham {
     private String loai;
     private double giaBan;
     
-    private boolean trangThai; // true = đang bán, false = ngừng bán
+    private boolean trangThai; 
 
     public SanPham(String maSanPham, String tenSanPham, String loai, double giaBan, String moTa, boolean trangThai) {
         
