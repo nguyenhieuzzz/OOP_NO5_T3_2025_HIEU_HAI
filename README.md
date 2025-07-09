@@ -4,6 +4,10 @@
 
 # Đối tượng 
 
+# Sơ đồ
+< img src="anh/Untitled.jpg">
+
+
 Khách hàng
 sản phẩn 
 giao dịch 
