@@ -5,7 +5,7 @@
 # Đối tượng 
 
 # Sơ đồ
-< img src='anh/Untitled.jpg'>
+<img src='anh/Untitled.jpg'>
 
 
 Khách hàng
