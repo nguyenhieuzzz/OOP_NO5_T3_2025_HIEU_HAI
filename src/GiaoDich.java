@@ -5,25 +5,54 @@ public class GiaoDich {
     private String maGiaoDich;
     private String maKhachHang;
     private List<SanPham> danhSachSanPham;
-    
-    private double tongTien;
 
-    public GiaoDich(String maGiaoDich, String maKhachHang, String thoiGian) {
+    public GiaoDich(String maGiaoDich, String maKhachHang) {
         this.maGiaoDich = maGiaoDich;
         this.maKhachHang = maKhachHang;
-        
         this.danhSachSanPham = new ArrayList<>();
-        this.tongTien = 0;
+    }
+
+    public String getMaGiaoDich() {
+        return maGiaoDich;
+    }
+
+    public String getMaKhachHang() {
+        return maKhachHang;
+    }
+
+    public List<SanPham> getDanhSachSanPham() {
+        return danhSachSanPham;
     }
 
     public void themSanPham(SanPham sp) {
         danhSachSanPham.add(sp);
-        
+    }
+
+    public boolean xoaSanPham(String tenSP) {
+        return danhSachSanPham.removeIf(sp -> sp.getTenSanPham().equalsIgnoreCase(tenSP));
+    }
+
+    public boolean suaGiaSanPham(String tenSP, double giaMoi) {
+        for (SanPham sp : danhSachSanPham) {
+            if (sp.getTenSanPham().equalsIgnoreCase(tenSP)) {
+                sp.setGiaBan(giaMoi);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public double getTongTien() {
+        double tong = 0;
+        for (SanPham sp : danhSachSanPham) {
+            tong += sp.getGiaBan();
+        }
+        return tong;
     }
 
     @Override
     public String toString() {
-        return "Giao dịch: " + maGiaoDich + " - KH: " + maKhachHang + " - Tổng tiền: " + tongTien + " VND";
+        return "GiaoDich{maGiaoDich='" + maGiaoDich + "', maKhachHang='" + maKhachHang +
+                "', tongTien=" + getTongTien() + ", danhSachSanPham=" + danhSachSanPham + '}';
     }
 }
-
