@@ -2,7 +2,8 @@
     "java.project.sourcePaths": [
         "review/Access/bài1/bài1/ex5",
         "review/Access/bài1/bài1",
-        "src"
+        "src",
+        "review/Access/bài1/bài1/ex2"
     ],
     "java.project.referencedLibraries": []
 }

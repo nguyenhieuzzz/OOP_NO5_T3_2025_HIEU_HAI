@@ -6,10 +6,10 @@ public class testGiaoDich {
 
         
         GiaoDich gd = new GiaoDich("GD01", "KH01", "2025-06-25 14:00");
+       
         gd.themSanPham(sp1);
         gd.themSanPham(sp2);
 
-        
-        System.out.println(gd);
+        System.out.println("giao dich");
     }
 }

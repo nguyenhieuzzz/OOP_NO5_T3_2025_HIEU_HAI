@@ -2,9 +2,9 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("sp");
         
-       //testKhachHang.test();
+        testKhachHang.test();
 
-      //Book.test();
+        Book.test();
         
     }
 }
