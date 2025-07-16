@@ -1,10 +1,8 @@
 public class App {
-    public static void main(String[] args) throws Exception {
-        System.out.println("sp");
-        
-        testKhachHang.test();
+    // ... main method ...
 
-        Book.test();
-        
+    public static void test() { // <-- Thay đổi thành public
+        System.out.println("\n--- Chạy Test SanPham từ phương thức test() ---");
+        // ... code test ...
     }
 }

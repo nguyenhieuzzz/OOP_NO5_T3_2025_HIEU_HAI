@@ -1,9 +1,9 @@
 {
     "java.project.sourcePaths": [
+        "src",
         "review/Access/bài1/bài1/ex5",
         "review/Access/bài1/bài1",
-        "src",
-        "review/Access/bài1/bài1/ex2"
+        "test"
     ],
     "java.project.referencedLibraries": []
 }

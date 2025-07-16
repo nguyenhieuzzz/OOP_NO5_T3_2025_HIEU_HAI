@@ -1,17 +1,29 @@
 public class SanPham {
+    private String maSanPham; 
     private String tenSanPham;
     private String loai;
     private double giaBan;
     private boolean trangThai;
 
-    public SanPham(String tenSanPham, String loai, double giaBan, boolean trangThai) {
+    public SanPham(String maSanPham, String tenSanPham, String loai, double giaBan, boolean trangThai) { // Cập nhật constructor
+        this.maSanPham = maSanPham; 
         this.tenSanPham = tenSanPham;
         this.loai = loai;
         this.giaBan = giaBan;
         this.trangThai = trangThai;
     }
 
-    // Getters
+    // Getters cho maSanPham
+    public String getMaSanPham() {
+        return maSanPham;
+    }
+
+    // Setters cho maSanPham 
+    public void setMaSanPham(String maSanPham) {
+        this.maSanPham = maSanPham;
+    }
+
+    // Getters còn lại (giữ nguyên)
     public String getTenSanPham() {
         return tenSanPham;
     }
@@ -28,7 +40,7 @@ public class SanPham {
         return trangThai;
     }
 
-    // Setters
+    // Setters còn lại (giữ nguyên)
     public void setTenSanPham(String tenSanPham) {
         this.tenSanPham = tenSanPham;
     }
@@ -47,6 +59,7 @@ public class SanPham {
 
     @Override
     public String toString() {
-        return tenSanPham + " - " + loai + ": " + giaBan + " VND (" + (trangThai ? "Đang bán" : "Ngừng bán") + ")";
+        // Cập nhật toString để hiển thị mã sản phẩm
+        return "Mã SP: " + maSanPham + ", Tên SP: " + tenSanPham + " - " + loai + ": " + giaBan + " VND (" + (trangThai ? "Đang bán" : "Ngừng bán") + ")";
     }
 }
