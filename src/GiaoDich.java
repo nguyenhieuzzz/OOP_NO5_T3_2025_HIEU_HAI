@@ -6,32 +6,39 @@ public class GiaoDich {
     private String maKhachHang;
     private List<SanPham> danhSachSanPham;
 
+    // Constructor: Khởi tạo giao dịch với mã giao dịch và mã khách hàng
     public GiaoDich(String maGiaoDich, String maKhachHang) {
         this.maGiaoDich = maGiaoDich;
         this.maKhachHang = maKhachHang;
         this.danhSachSanPham = new ArrayList<>();
     }
 
+    // Getter cho mã giao dịch
     public String getMaGiaoDich() {
         return maGiaoDich;
     }
 
+    // Getter cho mã khách hàng
     public String getMaKhachHang() {
         return maKhachHang;
     }
 
+    // Getter cho danh sách sản phẩm
     public List<SanPham> getDanhSachSanPham() {
         return danhSachSanPham;
     }
 
+    // Thêm một sản phẩm vào danh sách
     public void themSanPham(SanPham sp) {
         danhSachSanPham.add(sp);
     }
 
+    // Xoá sản phẩm theo tên (không phân biệt hoa thường)
     public boolean xoaSanPham(String tenSP) {
         return danhSachSanPham.removeIf(sp -> sp.getTenSanPham().equalsIgnoreCase(tenSP));
     }
 
+    // Sửa giá bán của sản phẩm theo tên (không phân biệt hoa thường)
     public boolean suaGiaSanPham(String tenSP, double giaMoi) {
         for (SanPham sp : danhSachSanPham) {
             if (sp.getTenSanPham().equalsIgnoreCase(tenSP)) {
@@ -39,9 +46,10 @@ public class GiaoDich {
                 return true;
             }
         }
-        return false;
+        return false; 
     }
 
+    // Tính tổng tiền của toàn bộ sản phẩm trong giao dịch
     public double getTongTien() {
         double tong = 0;
         for (SanPham sp : danhSachSanPham) {
@@ -50,9 +58,14 @@ public class GiaoDich {
         return tong;
     }
 
+    // Trả về chuỗi mô tả chi tiết của giao dịch
     @Override
     public String toString() {
-        return "GiaoDich{maGiaoDich='" + maGiaoDich + "', maKhachHang='" + maKhachHang +
-                "', tongTien=" + getTongTien() + ", danhSachSanPham=" + danhSachSanPham + '}';
+        return "GiaoDich{" +
+                "maGiaoDich='" + maGiaoDich + '\'' +
+                ", maKhachHang='" + maKhachHang + '\'' +
+                ", tongTien=" + getTongTien() +
+                ", danhSachSanPham=" + danhSachSanPham +
+                '}';
     }
 }

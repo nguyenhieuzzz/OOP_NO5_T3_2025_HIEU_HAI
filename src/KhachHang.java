@@ -1,17 +1,19 @@
 public class KhachHang {
+    //  Thuộc tính (được đóng gói)
     private String maKhachHang;
     private String hoTen;
     private String soDienThoai;
     private String hangThanhVien;
 
-    public KhachHang(String maKhachHang, String hoTen, String soDienThoai, String hangThanhVien) {
-        this.maKhachHang = maKhachHang;
-        this.hoTen = hoTen;
-        this.soDienThoai = soDienThoai;
-        this.hangThanhVien = hangThanhVien;
+    //  Hàm tạo (Constructor)
+    public KhachHang(String ma, String ten, String sdt, String hang) {
+        maKhachHang = ma;
+        hoTen = ten;
+        soDienThoai = sdt;
+        hangThanhVien = hang;
     }
 
-    // Getters
+    //  Các phương thức getter
     public String getMaKhachHang() {
         return maKhachHang;
     }
@@ -28,19 +30,20 @@ public class KhachHang {
         return hangThanhVien;
     }
 
-    // Setters
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
+    //  Các phương thức setter
+    public void setHoTen(String ten) {
+        hoTen = ten;
     }
 
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+    public void setSoDienThoai(String sdt) {
+        soDienThoai = sdt;
     }
 
-    public void setHangThanhVien(String hangThanhVien) {
-        this.hangThanhVien = hangThanhVien;
+    public void setHangThanhVien(String hang) {
+        hangThanhVien = hang;
     }
 
+    //  In thông tin khách hàng
     @Override
     public String toString() {
         return "Khách hàng: " + hoTen + " (" + maKhachHang + "), SĐT: " + soDienThoai + ", Hạng: " + hangThanhVien;
