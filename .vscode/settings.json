@@ -3,7 +3,8 @@
         "src",
         "review/Access/bài1/bài1/ex5",
         "review/Access/bài1/bài1",
-        "test"
+        "test",
+        "Review/model"
     ],
     "java.project.referencedLibraries": []
 }
