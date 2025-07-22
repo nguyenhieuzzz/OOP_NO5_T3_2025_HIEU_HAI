@@ -125,7 +125,7 @@ public class QuanCaPhe {
     private static void taoGiaoDich() {
         System.out.println("\n=== TẠO GIAO DỊCH MỚI ===");
         
-        // Hiển thị danh sách KH để chọn
+        // Hiển thi danh sách KH để chọn
         System.out.println("Danh sách khách hàng:");
         dsKhachHang.forEach(kh -> System.out.println(kh.getMaKhachHang() + " - " + kh.getHoTen()));
         
