@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class QuanCaPhe {
+public class QuanCoffeehieuhai {
     private static List<SanPham> menu = new ArrayList<>();
     private static List<KhachHang> dsKhachHang = new ArrayList<>();
     private static List<GiaoDich> dsGiaoDich = new ArrayList<>();
@@ -12,7 +12,7 @@ public class QuanCaPhe {
         khoiTaoDuLieuMau();
         
         while (true) {
-            System.out.println("\n=== QUẢN LÝ QUÁN COFFEE ===");
+            System.out.println("\n=== QUẢN LÝ QUÁN COFFEE HIEU HAI ===");
             System.out.println("1. Quản lý sản phẩm");
             System.out.println("2. Quản lý khách hàng");
             System.out.println("3. Tạo giao dịch mới");
@@ -21,7 +21,7 @@ public class QuanCaPhe {
             System.out.print("Chọn chức năng: ");
             
             int chon = sc.nextInt();
-            sc.nextLine(); // Xóa bộ đệm
+            sc.nextLine(); 
             
             switch (chon) {
                 case 1:
@@ -46,11 +46,11 @@ public class QuanCaPhe {
     }
 
     private static void khoiTaoDuLieuMau() {
-        // Thêm dữ liệu mẫu cho sản phẩm
+        
         menu.add(new SanPham("CF01", "Cafe Đen", "Đồ uống", 20000, true));
         menu.add(new SanPham("CF02", "Cafe Sữa", "Đồ uống", 25000, true));
         
-        // Thêm dữ liệu mẫu cho khách hàng
+        
         dsKhachHang.add(new KhachHang("KH01", "Nguyễn Văn A", "0912345678", "Vàng"));
     }
 
@@ -125,7 +125,7 @@ public class QuanCaPhe {
     private static void taoGiaoDich() {
         System.out.println("\n=== TẠO GIAO DỊCH MỚI ===");
         
-        // Hiển thi danh sách KH để chọn
+        
         System.out.println("Danh sách khách hàng:");
         dsKhachHang.forEach(kh -> System.out.println(kh.getMaKhachHang() + " - " + kh.getHoTen()));
         
