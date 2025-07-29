@@ -1,4 +1,3 @@
-
 class Battery {
     
     public Battery() {

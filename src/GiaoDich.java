@@ -38,7 +38,7 @@ public class GiaoDich {
         return danhSachSanPham.removeIf(sp -> sp.getTenSanPham().equalsIgnoreCase(tenSP));
     }
 
-    // Sửa giá bán của sản phẩm theo tên (không phân biệt hoa thường)
+    // Sửa giá bán của sản phẩm theo tên (không phân biệt hoa, thường)
     public boolean suaGiaSanPham(String tenSP, double giaMoi) {
         for (SanPham sp : danhSachSanPham) {
             if (sp.getTenSanPham().equalsIgnoreCase(tenSP)) {
