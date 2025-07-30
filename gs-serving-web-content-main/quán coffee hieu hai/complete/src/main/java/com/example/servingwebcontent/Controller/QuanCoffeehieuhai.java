@@ -1,7 +1,12 @@
+package com.example.servingwebcontent.Controller;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.example.servingwebcontent.model.KhachHang;
+import com.example.servingwebcontent.model.SanPham;
+import com.example.servingwebcontent.model.GiaoDich;
 
 
 public class QuanCoffeehieuhai {
