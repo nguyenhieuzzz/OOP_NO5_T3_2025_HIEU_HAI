@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Quán Coffee Hiếu Hải</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+    <h1>☕ Quán Coffee Hiếu Hải</h1>
+
+    <!-- Form nhập tên khách hàng -->
+    <form action="/quanlykhachhang" method="get">
+        <label for="hovaten">Họ và tên khách hàng:</label>
+        <input type="text" id="hovaten" name="hovaten" />
+        <img src="https://cdn-icons-png.flaticon.com/512/924/924915.png" alt="icon coffee" width="100" height="100">
+        <button type="submit">Xác nhận</button>
+    </form>
+
+    <p th:text="'Xin chào, ' + ${hovaten} + '!'"></p>
+    <p>Chào mừng đến Quán Coffee Hiếu Hải!</p>
+
+    <!-- Form đặt sản phẩm và giao dịch -->
+    <form id="orderForm">
+        <label for="sanpham">Chọn sản phẩm:</label>
+        <select name="sanpham" id="sanpham">
+            <option value="caphe">Cà phê</option>
+            <option value="trasua">Trà sữa</option>
+            <option value="sinhto">Sinh tố</option>
+        </select>
+        <button type="button" onclick="datSanPham()">Đặt món</button>
+        <div id="sanphamSuccess" class="success-message"></div>
+
+        <label for="soluong">Số lượng:</label>
+        <select name="soluong" id="soluong">
+            <option value="1">1 ly</option>
+            <option value="2">2 ly</option>
+            <option value="3">3 ly</option>
+        </select>
+        <button type="button" onclick="datGiaoDich()">Xác nhận giao dịch</button>
+        <div id="giaodichSuccess" class="success-message"></div>
+    </form>
+
+    <p>☕ Cảm ơn bạn đã sử dụng dịch vụ tại Hiếu Hải!</p>
+
+    <script>
+        function datSanPham() {
+            const sanpham = document.getElementById('sanpham').value;
+            const tenSP = sanpham === 'caphe' ? 'Cà phê' : 
+                          sanpham === 'trasua' ? 'Trà sữa' : 'Sinh tố';
+            document.getElementById('sanphamSuccess').textContent = 
+                `✅ Đã chọn ${tenSP}`;
+        }
+
+        function datGiaoDich() {
+            const sanpham = document.getElementById('sanpham').value;
+            const soluong = document.getElementById('soluong').value;
+            const tenSP = sanpham === 'caphe' ? 'Cà phê' : 
+                          sanpham === 'trasua' ? 'Trà sữa' : 'Sinh tố';
+            document.getElementById('giaodichSuccess').textContent = 
+                `🧾 Giao dịch: ${soluong} ly ${tenSP} đã được ghi nhận!`;
+        }
+    </script>
+</body>
+</html>
