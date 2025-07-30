@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quán Coffee Hiếu Hải</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        h1 {
+            color: #6f4e37;
+        }
+        .form-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f6f2;
+        }
+        label {
+            font-weight: bold;
+        }
+        .success-message {
+            color: green;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="form-section">
+        <form action="/quanlykhachhang" method="get">
+            <label for="hovaten">Họ và tên khách hàng:</label>
+            <input type="text" id="hovaten" name="hovaten" />
+            <button type="submit">Xác nhận</button>
+        </form>
+   
