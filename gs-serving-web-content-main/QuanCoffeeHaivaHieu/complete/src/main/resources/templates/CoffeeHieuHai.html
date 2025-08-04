@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quán Coffee Hiếu Hải</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #6F4E37;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header-img {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 200px;
+            border-radius: 50%;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .menu-item {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .menu-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .menu-item h3 {
+            margin: 0 0 5px 0;
+            color: #6F4E37;
+        }
+        .menu-item p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .menu-item .price {
+            font-weight: bold;
+            color: #d35400;
+            margin: 10px 0;
+        }
+        .menu-item .order-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .menu-item input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+        }
+        button {
+            background-color: #6F4E37;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #5a3c2a;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 15px;
+            color: #6F4E37;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+        }
+        .print-btn {
+            background-color: #4CAF50;
+            margin-top: 10px;
+        }
+        .print-btn:hover {
+            background-color: #45a049;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .container, .container * {
+                visibility: visible;
+            }
+            .container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+            }
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" alt="Coffee Logo" class="header-img">
+        <h1>QUÁN COFFEE HIẾU HẢI</h1>
+        
+        <div class="form-group">
+            <label for="customerName">Tên khách hàng:</label>
+            <input type="text" id="customerName" placeholder="Nhập tên của bạn">
+        </div>
+        
+        <div class="form-group">
+            <label>Thực đơn:</label>
+            <div class="menu-container">
+                <!-- Cà phê đen -->
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cà phê đen">
+                    <h3>Cà phê đen</h3>
+                    <p>Đậm đà truyền thống, pha từ hạt Arabica chất lượng</p>
+                    <div class="price">20.000đ</div>
+                    <div class="order-controls">
+                        <label>
+                            <input type="checkbox" id="coffeeDen" class="menu-checkbox">
+                            Chọn
+                        </label>
+                        <input type="number" id="qtyCoffeeDen" min="0" value="0" class="qty-input">
+                    </div>
+                </div>
+                
+                <!-- Cà phê sữa -->
+                <div class="menu-item">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUSEhIVFRUVFRUWFRUSFRUSFRUVFRUWFhUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGhAQGisdHR4tLS0tLS0tLS0tLS0rKy0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tK//AABEIAOEA4QMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAACAAEDBAUGB//EAEAQAAIBAgMEBwcBBgUEAwAAAAABAgMRBBIhBTFBURNhcYGRobEGFCJSwdHwIwcyQmKS4RWiwtLxQ3KC4hYkNP/EABoBAQADAQEBAAAAAAAAAAAAAAABAgMEBQb/xAAlEQEAAwABBAICAgMAAAAAAAAAAQIRAwQSITFBURNhIoEyM3H/2gAMAwEAAhEDEQA/APIBx0h0WQZD2CSHsAArBpDgAkS0pgWEBam7j0YFeMyaFQgS5QFJ3H6QXWSFMjJoollSAgo7zRpsrRpFmNRJAWLk1Gd9CrQqhxunoBeih566IB1FZX4g9KgK9ak0UDZlJMzK0NWBHENAxQaQDjoSQ6QDpjgicgDEBcQHOIdDWCSAew9hgkArDMIVgBGCaBAQcWRthQAsJDpiw8HJqMU5SbsoxWZt8klvZs7Q9l8ZRpqrVw1SEG0rtJ2b3ZknePekBmxsSuQEMPPhCX9LOk2P7GYvEUZVoQSSTcYSbjOpl35I29bX4EDnmwdSWVGfyS/pa+ha2VsPFYmeSjRlJpXd/hilwblKyJFCVXkWcJO4tp7Hr4efR16UoS4XV01zjJaSXYwMPoBozp6EM42HzSEpLiAqM95HXQSaIq8wI2h4sa4gJExXAQrgFcBsVwJMAswiO4gMhIKw6Q9gGSHsFYVgGsKwaQ9gI7DNElhZQOn9ifZWGKtVqpzpqUoyhCWSSsk03qrr4luaZ6DgfZHD5rRowoxXHoad9/zTzNvRa34nNfsvr2hOF/8Aqp9zglbyZ6lF23eWhXUpNlbOoUUujjFy+duOd+CVu4szpyndO2Vqzja6tyIemi4tPTl47u0eE0RqTf4LC1rvutH0WncFWwTlUi9IxjHTLdSbunvX8OnmS05cbkve/qTqFHEbDoSzOdODzNtu0W7vjfh3AbG2IqGaNN/C9Vezvpq27atl+FPlKWvV/cmjS/mfn9wKOMw0a0XCtBSi+DW58LcV2mP/APDKF7udR9WdW80dQ6X5YaVBP8QS4ra/srCMb01CfONSMM3bGUUm+w5La3sj8KlGPRSb3SlaNuybvfqTfcesziluXizJ2xgoOLm4q8U3d6vRX3kRI8Ecmm0+Da03aAykQqT3sJMuqkTCTIkEAdxMEVwGBkx5EUmAVxEdxAU0g7CSCUQFYdIdIdIBrDpD2HsA1hrBpDWA6z9nGJjGu4ydk3B+F0/VHsNbI/3Zq756HgXs/UcaytyZ6DhMZJ21Zzcl5rbG1KRMO+oqSv8Auu6tvDpwZzWFqy5mrh67I/KdjXpy6mXKbRm0a7L9GrcvW+qzXE90g4NMBMNMvqqRDsGI7ZIpVlqZXtNPJhK83wo1Gv6GauMZzX7RK+XZ9frgo/1SivqZxP8AJbPDwew8UIJG6h0h7DxCAjSEwpAXCDMikHIjkwGGGuICOKDSHigkgByj5Q0grADYVg7D2JAJCcSRITRAPZsstSLO0wVWV+FuBwy0aZ0Gy8a07XOHq6TMxMOrgtGTEuxo4uaTN3Z024q++xz2AxF1uR0OCloYcdLRPmWl5iYa2HkaFEzcKzToHZVhZcphpAQJEaMxodsAdskUNr5sqyq7zLzOQ/azWy4Fx+adNeEk/odxXV7dq8jzn9sVX9ClHnV9IS/sViP5anfDyVBIZIKKNlDjjDgMwB5DXCASIZk0iKYACHEBJFBqI8I6BqIAJBWDyjpEgcospIoj5SEo0hNBuInECGZewT+JFKoifBVVmtxRjzNeN3WyeHcdLhZWRy2xp6I6Wm9Ezmj01nzK1hNrQjPJUkot7r6X4HR4aV1ocliNjwrSi5RWmqeuj3nSbKwipxy3b7SeK8zPlHJWIjYatORMpFemyVM6IljiRzGkZW3K1aPRyoxztVI5o6K8NU9/ajS6RNCLecTNfGmlI8s/bDXX6EON5y7vhX1Z6dJnkX7WJXxFNcqb85P7MmPaJ9OFCSEkSWNVAWFYOwMkADQEkTKILiBXkRyLEoEUohCIQWUQFuC0DSFTWgaQDKI6iEokkYkpRqI+Ulyj2IEOUWUljAONMkVKlMp5Wmpx36XNjojJjKztybT7jHlhpR2Xs9ic1uZa2xjK0ZrK7RS0t9Tn8LUllzU9JLVdqOvoONWnFyVm0nZ8HbVHFfz6dNJiJ2W57O4p1Kabbvpc6ei9DmNh5YppW3/nqdFQqqxpTxDO/tBh1WlWblK1Nbo2878TciU6c0Txqo2izOUsgWRTrop43HKMW07OztfVX4XIteK+UxWZW5yPIP2jfFi31U4Lzk/qei0doSdJSna+W7a0TstZLkt55d7Q4jpMTUlv1S/pSXqmW457pVvGMJ0R+hLjQE4m7NWlTGUS10egoQGCs4AdGXJUx4UiRR6IGVI0ehBlSAzehHL3RiCNUIVFZDxrIz82gUblNlbw0enQliijcSGyeF/3sZ4zqKaiFkGyLaxvUP74ylkYujY2TF5458is4ptyW9t3X2I1BhU9GvzgU5J8L19ui9n8RSlaMlZ9e/t7DtMHs+608eHiedbMrpNtWutHzPQdkYmTw0OGsl5/3OK3t0R6YWJxFfCVW01KMn8Seqv9Du/Z7aVHEQTjVjm4wk8sk+xnLV8KpS+LVPvvzJtn7JjQq5o7nwM+ntafDTlisxvy9CjhOPDmtR40OBmYCo4tOL370aWPrWdl9jp74xzdsjq0YJfFJevoYmIxVGo8inuk0200tO0fG4tRW/4nu4nCe0spKMIRk1mk5Np2bs9Ne85Oo5o2Kx/bp4OL5dT7V7ao4elKlF3quDUIrW11pKXLmeVSqMvbek87bbbsrt89DOjNM7emv3V1hzU7ZxJCoyTONTjEmjTib6xyELbHuyXKhKKZOyZCHvJE3zE6SG6FjTDuTBlJjqkwJU2NMLXmIDKIbKMYSjzJrcipFtj52ELKjqOVHNjxmThq23YeM2V1IdTROGrVx0mQwn1k0U+ZVKSMHcjrqzQTT5gS1tf81KX/AMVq+xbJablJcfT/AJPSdi//AJYdTkeabPgk3Y9A9nal8Otd0/W5w3ny6o9NGcbrvL8XeC5lCnPTvL1Oay9hjE9szML+4iFvZteztKSu2rK6NXbmJlC7ik2o6J8eJw3udKpUSlG95K/jzO5xdCNOmo3bUYpLM7u3axxcvdEz9HJxxWY/bzhbRrRcqtZ5nJtQjwV3e3doiKnjJVmozSTjuaXP/gu4mMXKVt13bxKuHhFTVuLR5/Jyzbft3VpEQyPaeFpSt81jJpRNDb9bNVava0pepTg0v4j3OiiY4Y15fVZ+SUtNEtir0jX8SHWLfzI63Nqz0a5hRgVf8QtyDjtJDJNhZsLpO0g/xJchR2guQyRNKt1MgqVGGsXfgTSasQKOdiLV1y8hDU5LllU6kK76iJS7As7LKlKD5jwh2jZ+sOEhokjT7QlTfIUW+oWZ9RGyYNp9QUVJ/wAQKv1EtF670Em6GXzDShl1u3o/JXJ3L+ZAVZXS15+jK2nwmI8o8NPezsPZTGxnQnHW8KiTX/jdHDUZWZ1fs3K1GXNyXozzufIh2ccTMupoVNUuFibG49RWWJm4aunbmiLE1L3ZxXmclvSvld2TWcq0b7lJX8Ta9r9oZpuCeit9DnNhP9WK/mj6o0du03mm+3g7t62ad9PAyrbK9sfLaax3bPw53H7ThTWsteS3kuxs05Qb4u/1MrC7Icp56iuluT4v7G9s6X6i6k/RluXtrXtr7WrEzOy53aqj0mvG78yBQp8bhbTknNa8PqyKMVzfke10u/iq8rqP9kk6dLlIjmocIMmsubFZc34nSwV9OEWJ038hbUY9fiKy6/EaYq9HL5R1GfJFlU4jOkuY0xB+pyGz1CWcfy7I32DQGepzHHuuXqOSOfch7kQiVU6aHTK4+YjE6sXFchTY92MFhDogux1JjBZXaTUNWijdmjsSk51oQ0+Jtf5WVtHhNfajJ2bOg2DirU5LrRz+Oi41Jxe9Sa8GW9k1Phl2o4Oem0dvDOS67D4rzVgo1bJ95hUqrLCrux59qy7K419j1v1Yvk0za2tjLyfacxsip+ou00to1NW+s57Vy2NojwGrVuh8BOzk+UJPyKTqqweDq6VLfI/MjtSxcZrPuQ6por4tPO32DKVj6ThjOOsfp4nLbbz/ANWVTJFRXNFdTCi0jRmsKkufqH0a5kHf5hxTCRql+fjHdIUUyVPqXgQlD0X5oC6K/LFjN2eDBlBvq7ghV92X5YcsdH1/ngIGOQyjKAasOmi2qAVNflwlFDjOP5r9gFZDaCa/NQHECRWCXaV7DpgWU+s1fZ3ERhiKU3Z2lqnqmrNNeDZz7mamxcI3VpubtHpIX5tZlfsImYhaImfS17a017zKpBWhVtKNt17Wmr87pmds6ra/cd/tzARnFyhKE4O2aNRqindtpwWrurcVa7e85ir7LVtZUoqUOqcG48bO0reafUjC1O6rWnJFZ8oaVUm6YiWxMVFNqlJpb7ZXv3Ws9SF4ast9Kou2El9DltwS6681ftsbEqfqov7Qq6vtZhbNdSEs3RVH2Rl9iStUrSaiqUs0nKyfwttRzNK/GybOa3TXtfYh0Rz0ivmVqeI0LOBzVFJKybsvhW6Kd5Sflr1opLYuMtfoX1xUoxl35nY0Nn7Lx2SrH3eVJTUYp5lL4pJ2cpxk8sUrvle3I6KdHPuzn5OrrmV9s2tDXVbgMkevyOg2r7M4mF5qCqRsm+jlqnb5WrnPSr5XZwafJto7qWiYyHFaJ9yZ05cFoOqcuMQljI/KvFknvUflXi/9xfZV8InQfJ+pJSjJPd629ApV48I+b+48KnUl3t/6gYsRqx4qK/P+0mjl4ZfL/aVVBPiu/Mv9Quj5X7lP1uRiVpLqh5fYZw/7e5L7ENpcIy8JfcZOfy+UvuBP0a6vL7CIc0/lfhIQHJNv8YD/ADd9g1WXy+f9hZ18vn/YtquI7jOROpL5X43+gm18r8WhqMV7hKP5Zk3SdT72xs/8t+1sGIXSfJ+DIp02uDLObqXn9yOrHs8SULXs5XpxrLpYKUXb952Ss7tN9e49Gl7O0a6z0X0ct6s1KzW68F9Hw8fIs1nqbWx9pVKcopTaWqtf4U7Oz9Dn5eOZnuiXRxXjO2XpuK95VNU54elXgt6ypJ9sHqnv1Unve457EujCV6dLoKmeMnFRlJtQeiTlO6i3e646DbO9sMQrJtS1t8euui1bvY1H7W/ApVcHCSzONna60u96a9Ckcl6+4Xnipb0hrbXjNTjHPBuOqn0srO/CKWWNtLa7rmTDGySabfbd8u86bZvtNgp6LCKN9HeMHxVk9OtFpY7Z734Vb7WVOGrduKeqJnqJgjptcthtq5LtyS7ZS/2GVi68qtW/Sq1nZfHJpu2qtTevWd3idobOjp7vlbv/AAvt0sxYXaGDi/08OrtJ6RWqe67b9SJ6rPhMdI43ZmFq5nH/AOzWT0ypytle9Xcb+DR03s9savTh0cqcoQclJKpLM1a9na+j1W7TTmbdPb94pxppRauvit/lS08SJ7XrzjmioQuuEXL1ZlfqLz+mlekiPcNjH4pRi51MsdOf03+HccF7TY6NZSmoKNpaO1nbc2+V77vxadad6kXOTm9d/da3DmcztrGW+GcUnJt2T3K+6176WX9XUZ8X8rxjXkrFaTqkpvh6BRnL8RBDEx5L87w44pb/AIfP7nqY8vU6qT/EP0svxFb3vs8/uJYl814DtTq2qsvxDOv1eRU6a/Efpf5h2o1bjiepeH9i1HE33R+v0Mrp7cfIZ4x/M+7Qdp3Nnpv5PL/1EYvv0/nl4sQ7E9zmt3EJVmuIDQE11k+ELCxL/GMq3aV7CYxGrHSdviOqvWBSaJ3TTXBctfMjftOB6TrH6QrzjZ29BKRbEalqKL4IiycrjtjETCdXsPjLLK13q3LTRm1W2xCpBXunvas/3uLT5b/E5lIs30MrUiWtLzVuYbF03H95J6dTunp6I1o4+nkzZ46NZrSjfk7Lt1OUoUKklpHvtY0KOz3ZOWmvYYX46/Murj57fTXxtanK36kVLevi0b5abr3fgWMLtGmp520ozSVr3tuRkzoQil8b8UL3mnH+NvLu49+jM544mMaTzzuuow20aCc6Wf4U3OMkm18WuXRa6uRXxO2FCOWnnae9WS0a4Nu638jmltC93vv1JB+/SfFeXqW/BHyrPUTmLeK2pVnbLlp2SWnxS0/me7wMxYNt33t73zJVST1b80EqHWdFOOK+nJyck29ovd31C6B34ehL0L+ZeLF0D5+ZtrJH7u+oboubXkS9Cx+hfWShF0ALpE7pW33GydfoEIvd2C8M+svRpfDZLXndNeFtPESw35oNMUvdn1+Yi50Pb5DkdxjmKn0KrEIiCTiHEWQUA47hhFbJqF7xmOItHoIJDCBCV7zQwYhGc+mkNb7Fevu/OoQjCG0+mRLeWYCEbKfKRbidbu4YREp+EsdwFL6iEXhlZYiTQ3CEWlWCW785BoYRCSmQvf8AnMQhCsrsP3F2P1K0vzxYhBYIhCIQ/9k=" alt="Cà phê sữa">
+                    <h3>Cà phê sữa</h3>
+                    <p>Hài hòa giữa vị đắng của cà phê và ngọt ngào của sữa đặc</p>
+                    <div class="price">25.000đ</div>
+                    <div class="order-controls">
+                        <label>
+                            <input type="checkbox" id="coffeeSua" class="menu-checkbox">
+                            Chọn
+                        </label>
+                        <input type="number" id="qtyCoffeeSua" min="0" value="0" class="qty-input">
+                    </div>
+                </div>
+                
+                <!-- Bạc xỉu -->
+                <div class="menu-item">
+                    <img src="data:image/jpeg;base64,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" alt="Bạc xỉu">
+                    <h3>Bạc xỉu</h3>
+                    <p>Nhẹ nhàng với nhiều sữa, thích hợp cho người mới uống cà phê</p>
+                    <div class="price">30.000đ</div>
+                    <div class="order-controls">
+                        <label>
+                            <input type="checkbox" id="bacXiu" class="menu-checkbox">
+                            Chọn
+                        </label>
+                        <input type="number" id="qtyBacXiu" min="0" value="0" class="qty-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="placeOrder()">ĐẶT HÀNG</button>
+        
+        <div id="orderResult" class="result" style="display: none;">
+            <h3>Thông tin đơn hàng</h3>
+            <p id="customerGreeting"></p>
+            <div id="orderDetails"></div>
+            <div id="orderTotal" class="total"></div>
+            <button onclick="window.print()" class="print-btn">IN HÓA ĐƠN</button>
+        </div>
+        
+        <footer>
+            <p>Địa chỉ: Trích Sài, Quận Hồ Tây</p>
+            <p>Điện thoại: 0987388386</p>
+            <p>Cảm ơn quý khách!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tự động check khi thay đổi số lượng
+        document.querySelectorAll('.qty-input').forEach(input => {
+            input.addEventListener('change', function() {
+                const checkbox = this.previousElementSibling.querySelector('.menu-checkbox');
+                checkbox.checked = this.value > 0;
+            });
+        });
+
+        // Tự động set số lượng = 1 khi check
+        document.querySelectorAll('.menu-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const qtyInput = this.closest('.order-controls').querySelector('.qty-input');
+                if (this.checked && qtyInput.value == 0) {
+                    qtyInput.value = 1;
+                } else if (!this.checked) {
+                    qtyInput.value = 0;
+                }
+            });
+        });
+
+        function placeOrder() {
+            // Lấy thông tin khách hàng
+            const customerName = document.getElementById('customerName').value || 'Quý khách';
+            
+            // Lấy thông tin đơn hàng
+            const items = [];
+            let total = 0;
+            
+            // Kiểm tra từng món
+            if (document.getElementById('coffeeDen').checked) {
+                const qty = parseInt(document.getElementById('qtyCoffeeDen').value);
+                if (qty > 0) {
+                    const price = 20000;
+                    const subtotal = price * qty;
+                    items.push({
+                        name: 'Cà phê đen',
+                        qty: qty,
+                        price: price,
+                        subtotal: subtotal
+                    });
+                    total += subtotal;
+                }
+            }
+            
+            if (document.getElementById('coffeeSua').checked) {
+                const qty = parseInt(document.getElementById('qtyCoffeeSua').value);
+                if (qty > 0) {
+                    const price = 25000;
+                    const subtotal = price * qty;
+                    items.push({
+                        name: 'Cà phê sữa',
+                        qty: qty,
+                        price: price,
+                        subtotal: subtotal
+                    });
+                    total += subtotal;
+                }
+            }
+            
+            if (document.getElementById('bacXiu').checked) {
+                const qty = parseInt(document.getElementById('qtyBacXiu').value);
+                if (qty > 0) {
+                    const price = 30000;
+                    const subtotal = price * qty;
+                    items.push({
+                        name: 'Bạc xỉu',
+                        qty: qty,
+                        price: price,
+                        subtotal: subtotal
+                    });
+                    total += subtotal;
+                }
+            }
+            
+            // Hiển thị kết quả
+            if (items.length > 0) {
+                document.getElementById('customerGreeting').textContent = `Xin chào ${customerName}! Đơn hàng của bạn:`;
+                
+                let orderDetailsHTML = '';
+                items.forEach(item => {
+                    orderDetailsHTML += `
+                        <div class="order-item">
+                            <span>${item.name} (${item.qty} x ${item.price.toLocaleString()}đ)</span>
+                            <span>${item.subtotal.toLocaleString()}đ</span>
+                        </div>
+                    `;
+                });
+                
+                document.getElementById('orderDetails').innerHTML = orderDetailsHTML;
+                document.getElementById('orderTotal').textContent = `Tổng cộng: ${total.toLocaleString()}đ`;
+                document.getElementById('orderResult').style.display = 'block';
+                
+                // Cuộn đến kết quả
+                document.getElementById('orderResult').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert('Vui lòng chọn ít nhất một món và số lượng!');
+            }
+        }
+    </script>
+</body>
+</html>
