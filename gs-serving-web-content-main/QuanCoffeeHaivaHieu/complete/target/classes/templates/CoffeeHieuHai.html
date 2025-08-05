@@ -4,32 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quán Coffee Hiếu Hải</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             color: #333;
         }
-        .container {
-            max-width: 800px;
+        .navbar {
+            background-color: #6F4E37;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .logo i {
+            margin-right: 10px;
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-menu li {
+            margin-left: 20px;
+            position: relative;
+        }
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .nav-menu a:hover {
+            background-color: #5a3c2a;
+            transform: translateY(-2px);
+        }
+        .nav-menu a.active {
+            background-color: #5a3c2a;
+            font-weight: bold;
+        }
+        .nav-menu a i {
+            margin-right: 8px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
             background-color: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            min-height: 500px;
         }
         h1 {
             color: #6F4E37;
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        h1:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #6F4E37;
         }
         .header-img {
             display: block;
             margin: 0 auto 20px;
             max-width: 200px;
             border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         .form-group {
             margin-bottom: 20px;
@@ -38,6 +110,28 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        input[type="tel"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #6F4E37;
+            outline: none;
         }
         .menu-container {
             display: grid;
@@ -49,11 +143,14 @@
             border: 1px solid #eee;
             border-radius: 8px;
             padding: 15px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
         }
         .menu-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .menu-item img {
             width: 100%;
@@ -61,20 +158,27 @@
             object-fit: cover;
             border-radius: 5px;
             margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+        .menu-item:hover img {
+            transform: scale(1.05);
         }
         .menu-item h3 {
             margin: 0 0 5px 0;
             color: #6F4E37;
+            font-size: 18px;
         }
         .menu-item p {
             margin: 5px 0;
             color: #666;
             font-size: 14px;
+            line-height: 1.4;
         }
         .menu-item .price {
             font-weight: bold;
             color: #d35400;
             margin: 10px 0;
+            font-size: 16px;
         }
         .menu-item .order-controls {
             display: flex;
@@ -94,18 +198,30 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             width: 100%;
             margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button i {
+            margin-right: 8px;
         }
         button:hover {
             background-color: #5a3c2a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        button:active {
+            transform: translateY(0);
         }
         .result {
             margin-top: 30px;
             padding: 20px;
             background-color: #f9f9f9;
             border-radius: 5px;
+            border-left: 4px solid #6F4E37;
         }
         .order-item {
             display: flex;
@@ -119,11 +235,15 @@
             font-size: 18px;
             margin-top: 15px;
             color: #6F4E37;
+            text-align: right;
         }
         footer {
             text-align: center;
             margin-top: 30px;
             color: #777;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-top: 1px solid #ddd;
         }
         .print-btn {
             background-color: #4CAF50;
@@ -133,6 +253,9 @@
             background-color: #45a049;
         }
         @media print {
+            .navbar, footer, button {
+                display: none;
+            }
             body * {
                 visibility: hidden;
             }
@@ -145,189 +268,1099 @@
                 top: 0;
                 width: 100%;
                 box-shadow: none;
+                padding: 0;
+                margin: 0;
             }
-            button {
-                display: none;
+            .result {
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        /* Style cho các trang khác */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .page.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #6F4E37;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            margin: 0 3px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            color: white;
+        }
+        .action-btn i {
+            margin-right: 5px;
+        }
+        .edit-btn {
+            background-color: #3498db;
+        }
+        .edit-btn:hover {
+            background-color: #2980b9;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        .view-btn {
+            background-color: #2ecc71;
+        }
+        .view-btn:hover {
+            background-color: #27ae60;
+        }
+        .add-btn {
+            background-color: #6F4E37;
+            color: white;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .add-btn:hover {
+            background-color: #5a3c2a;
+        }
+        .chart-container {
+            width: 100%;
+            margin: 30px auto;
+            position: relative;
+        }
+        .status-active {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .status-inactive {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .status-pending {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow: auto;
+            animation: fadeInModal 0.3s;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 10px;
+            width: 50%;
+            max-width: 700px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideDown 0.3s;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+        }
+        .close-btn:hover {
+            color: #333;
+        }
+        .modal-title {
+            margin-top: 0;
+            color: #6F4E37;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-col {
+            flex: 1;
+        }
+        .form-footer {
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .cancel-btn {
+            background-color: #95a5a6;
+            margin-right: 10px;
+        }
+        .cancel-btn:hover {
+            background-color: #7f8c8d;
+        }
+        .save-btn {
+            background-color: #27ae60;
+        }
+        .save-btn:hover {
+            background-color: #219955;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            background-color: #f1f1f1;
+        }
+        .tab.active {
+            background-color: white;
+            border-color: #ddd;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+            font-weight: bold;
+            color: #6F4E37;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            .nav-menu {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-menu li {
+                margin: 5px;
+            }
+            .modal-content {
+                width: 90%;
+                margin: 10% auto;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .search-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .search-bar input {
+                width: 100%;
+                max-width: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" alt="Coffee Logo" class="header-img">
-        <h1>QUÁN COFFEE HIẾU HẢI</h1>
-        
-        <div class="form-group">
-            <label for="customerName">Tên khách hàng:</label>
-            <input type="text" id="customerName" placeholder="Nhập tên của bạn">
+    <div class="navbar">
+        <div class="nav-container">
+            <div class="logo"><i class="fas fa-coffee"></i> COFFEE HIẾU HẢI</div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" data-page="home"><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li><a href="#" class="nav-link" data-page="booking"><i class="fas fa-calendar-alt"></i> Đặt bàn</a></li>
+                <li><a href="#" class="nav-link" data-page="products"><i class="fas fa-utensils"></i> Sản phẩm</a></li>
+                <li><a href="#" class="nav-link" data-page="promotions"><i class="fas fa-percentage"></i> Khuyến mãi</a></li>
+                <li><a href="#" class="nav-link" data-page="staff"><i class="fas fa-users"></i> Nhân viên</a></li>
+                <li><a href="#" class="nav-link" data-page="bills"><i class="fas fa-receipt"></i> Hóa đơn</a></li>
+                <li><a href="#" class="nav-link" data-page="history"><i class="fas fa-history"></i> Lịch sử</a></li>
+                <li><a href="#" class="nav-link" data-page="statistics"><i class="fas fa-chart-line"></i> Thống kê</a></li>
+            </ul>
         </div>
-        
-        <div class="form-group">
-            <label>Thực đơn:</label>
-            <div class="menu-container">
-                <!-- Cà phê đen -->
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cà phê đen">
-                    <h3>Cà phê đen</h3>
-                    <p>Đậm đà truyền thống, pha từ hạt Arabica chất lượng</p>
-                    <div class="price">20.000đ</div>
-                    <div class="order-controls">
-                        <label>
-                            <input type="checkbox" id="coffeeDen" class="menu-checkbox">
-                            Chọn
-                        </label>
-                        <input type="number" id="qtyCoffeeDen" min="0" value="0" class="qty-input">
-                    </div>
-                </div>
+    </div>
+
+    <div class="container">
+        <div id="home" class="page active">
+            <h1>Chào mừng đến với Coffee Hiếu Hải</h1>
+            <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" alt="Coffee Logo" class="header-img">
+            <p style="text-align: center; font-size: 18px;">Quán cà phê với không gian ấm cúng và chất lượng phục vụ tốt nhất</p>
+            
+            <div style="margin-top: 40px;">
+                <h2 style="color: #6F4E37; border-bottom: 2px solid #6F4E37; padding-bottom: 10px;"><i class="fas fa-info-circle"></i> Giới thiệu</h2>
+                <p>Quán Coffee Hiếu Hải được thành lập năm 2020 với mong muốn mang đến cho khách hàng những trải nghiệm cà phê chất lượng nhất. Chúng tôi tự hào về:</p>
+                <ul style="line-height: 1.8;">
+                    <li><i class="fas fa-check-circle" style="color: #6F4E37;"></i> Nguyên liệu cà phê được tuyển chọn kỹ lưỡng từ các vùng trồng nổi tiếng</li>
+                    <li><i class="fas fa-check-circle" style="color: #6F4E37;"></i> Không gian thoải mái, thân thiện với 5 khu vực bàn riêng biệt</li>
+                    <li><i class="fas fa-check-circle" style="color: #6F4E37;"></i> Dịch vụ chuyên nghiệp, tận tâm từ đội ngũ nhân viên được đào tạo bài bản</li>
+                    <li><i class="fas fa-check-circle" style="color: #6F4E37;"></i> Giá cả hợp lý cùng nhiều chương trình khuyến mãi hấp dẫn</li>
+                </ul>
                 
-                <!-- Cà phê sữa -->
-                <div class="menu-item">
-                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUSEhIVFRUVFRUWFRUSFRUSFRUVFRUWFhUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMsNygtLisBCgoKDg0OGhAQGisdHR4tLS0tLS0tLS0tLS0rKy0tLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0rLS0tLS0tLS0tK//AABEIAOEA4QMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAACAAEDBAUGB//EAEAQAAIBAgMEBwcBBgUEAwAAAAABAgMRBBIhBTFBURNhcYGRobEGFCJSwdHwIwcyQmKS4RWiwtLxQ3KC4hYkNP/EABoBAQADAQEBAAAAAAAAAAAAAAABAgMEBQb/xAAlEQEAAwABBAICAgMAAAAAAAAAAQIRAwQSITFBURNhIoEyM3H/2gAMAwEAAhEDEQA/APIBx0h0WQZD2CSHsAArBpDgAkS0pgWEBam7j0YFeMyaFQgS5QFJ3H6QXWSFMjJoollSAgo7zRpsrRpFmNRJAWLk1Gd9CrQqhxunoBeih566IB1FZX4g9KgK9ak0UDZlJMzK0NWBHENAxQaQDjoSQ6QDpjgicgDEBcQHOIdDWCSAew9hgkArDMIVgBGCaBAQcWRthQAsJDpiw8HJqMU5SbsoxWZt8klvZs7Q9l8ZRpqrVw1SEG0rtJ2b3ZknePekBmxsSuQEMPPhCX9LOk2P7GYvEUZVoQSSTcYSbjOpl35I29bX4EDnmwdSWVGfyS/pa+ha2VsPFYmeSjRlJpXd/hilwblKyJFCVXkWcJO4tp7Hr4efR16UoS4XV01zjJaSXYwMPoBozp6EM42HzSEpLiAqM95HXQSaIq8wI2h4sa4gJExXAQrgFcBsVwJMAswiO4gMhIKw6Q9gGSHsFYVgGsKwaQ9gI7DNElhZQOn9ifZWGKtVqpzpqUoyhCWSSsk03qrr4luaZ6DgfZHD5rRowoxXHoad9/zTzNvRa34nNfsvr2hOF/8Aqp9zglbyZ6lF23eWhXUpNlbOoUUujjFy+duOd+CVu4szpyndO2Vqzja6tyIemi4tPTl47u0eE0RqTf4LC1rvutH0WncFWwTlUi9IxjHTLdSbunvX8OnmS05cbkve/qTqFHEbDoSzOdODzNtu0W7vjfh3AbG2IqGaNN/C9Vezvpq27atl+FPlKWvV/cmjS/mfn9wKOMw0a0XCtBSi+DW58LcV2mP/APDKF7udR9WdW80dQ6X5YaVBP8QS4ra/srCMb01CfONSMM3bGUUm+w5La3sj8KlGPRSb3SlaNuybvfqTfcesziluXizJ2xgoOLm4q8U3d6vRX3kRI8Ecmm0+Da03aAykQqT3sJMuqkTCTIkEAdxMEVwGBkx5EUmAVxEdxAU0g7CSCUQFYdIdIdIBrDpD2HsA1hrBpDWA6z9nGJjGu4ydk3B+F0/VHsNbI/3Zq756HgXs/UcaytyZ6DhMZJ21Zzcl5rbG1KRMO+oqSv8Auu6tvDpwZzWFqy5mrh67I/KdjXpy6mXKbRm0a7L9GrcvW+qzXE90g4NMBMNMvqqRDsGI7ZIpVlqZXtNPJhK83wo1Gv6GauMZzX7RK+XZ9frgo/1SivqZxP8AJbPDwew8UIJG6h0h7DxCAjSEwpAXCDMikHIjkwGGGuICOKDSHigkgByj5Q0grADYVg7D2JAJCcSRITRAPZsstSLO0wVWV+FuBwy0aZ0Gy8a07XOHq6TMxMOrgtGTEuxo4uaTN3Z024q++xz2AxF1uR0OCloYcdLRPmWl5iYa2HkaFEzcKzToHZVhZcphpAQJEaMxodsAdskUNr5sqyq7zLzOQ/azWy4Fx+adNeEk/odxXV7dq8jzn9sVX9ClHnV9IS/sViP5anfDyVBIZIKKNlDjjDgMwB5DXCASIZk0iKYACHEBJFBqI8I6BqIAJBWDyjpEgcospIoj5SEo0hNBuInECGZewT+JFKoifBVVmtxRjzNeN3WyeHcdLhZWRy2xp6I6Wm9Ezmj01nzK1hNrQjPJUkot7r6X4HR4aV1ocliNjwrSi5RWmqeuj3nSbKwipxy3b7SeK8zPlHJWIjYatORMpFemyVM6IljiRzGkZW3K1aPRyoxztVI5o6K8NU9/ajS6RNCLecTNfGmlI8s/bDXX6EON5y7vhX1Z6dJnkX7WJXxFNcqb85P7MmPaJ9OFCSEkSWNVAWFYOwMkADQEkTKILiBXkRyLEoEUohCIQWUQFuC0DSFTWgaQDKI6iEokkYkpRqI+Ulyj2IEOUWUljAONMkVKlMp5Wmpx36XNjojJjKztybT7jHlhpR2Xs9ic1uZa2xjK0ZrK7RS0t9Tn8LUllzU9JLVdqOvoONWnFyVm0nZ8HbVHFfz6dNJiJ2W57O4p1Kabbvpc6ei9DmNh5YppW3/nqdFQqqxpTxDO/tBh1WlWblK1Nbo2878TciU6c0Txqo2izOUsgWRTrop43HKMW07OztfVX4XIteK+UxWZW5yPIP2jfFi31U4Lzk/qei0doSdJSna+W7a0TstZLkt55d7Q4jpMTUlv1S/pSXqmW457pVvGMJ0R+hLjQE4m7NWlTGUS10egoQGCs4AdGXJUx4UiRR6IGVI0ehBlSAzehHL3RiCNUIVFZDxrIz82gUblNlbw0enQliijcSGyeF/3sZ4zqKaiFkGyLaxvUP74ylkYujY2TF5458is4ptyW9t3X2I1BhU9GvzgU5J8L19ui9n8RSlaMlZ9e/t7DtMHs+608eHiedbMrpNtWutHzPQdkYmTw0OGsl5/3OK3t0R6YWJxFfCVW01KMn8Seqv9Du/Z7aVHEQTjVjm4wk8sk+xnLV8KpS+LVPvvzJtn7JjQq5o7nwM+ntafDTlisxvy9CjhOPDmtR40OBmYCo4tOL370aWPrWdl9jp74xzdsjq0YJfFJevoYmIxVGo8inuk0200tO0fG4tRW/4nu4nCe0spKMIRk1mk5Np2bs9Ne85Oo5o2Kx/bp4OL5dT7V7ao4elKlF3quDUIrW11pKXLmeVSqMvbek87bbbsrt89DOjNM7emv3V1hzU7ZxJCoyTONTjEmjTib6xyELbHuyXKhKKZOyZCHvJE3zE6SG6FjTDuTBlJjqkwJU2NMLXmIDKIbKMYSjzJrcipFtj52ELKjqOVHNjxmThq23YeM2V1IdTROGrVx0mQwn1k0U+ZVKSMHcjrqzQTT5gS1tf81KX/AMVq+xbJablJcfT/AJPSdi//AJYdTkeabPgk3Y9A9nal8Otd0/W5w3ny6o9NGcbrvL8XeC5lCnPTvL1Oay9hjE9szML+4iFvZteztKSu2rK6NXbmJlC7ik2o6J8eJw3udKpUSlG95K/jzO5xdCNOmo3bUYpLM7u3axxcvdEz9HJxxWY/bzhbRrRcqtZ5nJtQjwV3e3doiKnjJVmozSTjuaXP/gu4mMXKVt13bxKuHhFTVuLR5/Jyzbft3VpEQyPaeFpSt81jJpRNDb9bNVava0pepTg0v4j3OiiY4Y15fVZ+SUtNEtir0jX8SHWLfzI63Nqz0a5hRgVf8QtyDjtJDJNhZsLpO0g/xJchR2guQyRNKt1MgqVGGsXfgTSasQKOdiLV1y8hDU5LllU6kK76iJS7As7LKlKD5jwh2jZ+sOEhokjT7QlTfIUW+oWZ9RGyYNp9QUVJ/wAQKv1EtF670Em6GXzDShl1u3o/JXJ3L+ZAVZXS15+jK2nwmI8o8NPezsPZTGxnQnHW8KiTX/jdHDUZWZ1fs3K1GXNyXozzufIh2ccTMupoVNUuFibG49RWWJm4aunbmiLE1L3ZxXmclvSvld2TWcq0b7lJX8Ta9r9oZpuCeit9DnNhP9WK/mj6o0du03mm+3g7t62ad9PAyrbK9sfLaax3bPw53H7ThTWsteS3kuxs05Qb4u/1MrC7Icp56iuluT4v7G9s6X6i6k/RluXtrXtr7WrEzOy53aqj0mvG78yBQp8bhbTknNa8PqyKMVzfke10u/iq8rqP9kk6dLlIjmocIMmsubFZc34nSwV9OEWJ038hbUY9fiKy6/EaYq9HL5R1GfJFlU4jOkuY0xB+pyGz1CWcfy7I32DQGepzHHuuXqOSOfch7kQiVU6aHTK4+YjE6sXFchTY92MFhDogux1JjBZXaTUNWijdmjsSk51oQ0+Jtf5WVtHhNfajJ2bOg2DirU5LrRz+Oi41Jxe9Sa8GW9k1Phl2o4Oem0dvDOS67D4rzVgo1bJ95hUqrLCrux59qy7K419j1v1Yvk0za2tjLyfacxsip+ou00to1NW+s57Vy2NojwGrVuh8BOzk+UJPyKTqqweDq6VLfI/MjtSxcZrPuQ6por4tPO32DKVj6ThjOOsfp4nLbbz/ANWVTJFRXNFdTCi0jRmsKkufqH0a5kHf5hxTCRql+fjHdIUUyVPqXgQlD0X5oC6K/LFjN2eDBlBvq7ghV92X5YcsdH1/ngIGOQyjKAasOmi2qAVNflwlFDjOP5r9gFZDaCa/NQHECRWCXaV7DpgWU+s1fZ3ERhiKU3Z2lqnqmrNNeDZz7mamxcI3VpubtHpIX5tZlfsImYhaImfS17a017zKpBWhVtKNt17Wmr87pmds6ra/cd/tzARnFyhKE4O2aNRqindtpwWrurcVa7e85ir7LVtZUoqUOqcG48bO0reafUjC1O6rWnJFZ8oaVUm6YiWxMVFNqlJpb7ZXv3Ws9SF4ast9Kou2El9DltwS6681ftsbEqfqov7Qq6vtZhbNdSEs3RVH2Rl9iStUrSaiqUs0nKyfwttRzNK/GybOa3TXtfYh0Rz0ivmVqeI0LOBzVFJKybsvhW6Kd5Sflr1opLYuMtfoX1xUoxl35nY0Nn7Lx2SrH3eVJTUYp5lL4pJ2cpxk8sUrvle3I6KdHPuzn5OrrmV9s2tDXVbgMkevyOg2r7M4mF5qCqRsm+jlqnb5WrnPSr5XZwafJto7qWiYyHFaJ9yZ05cFoOqcuMQljI/KvFknvUflXi/9xfZV8InQfJ+pJSjJPd629ApV48I+b+48KnUl3t/6gYsRqx4qK/P+0mjl4ZfL/aVVBPiu/Mv9Quj5X7lP1uRiVpLqh5fYZw/7e5L7ENpcIy8JfcZOfy+UvuBP0a6vL7CIc0/lfhIQHJNv8YD/ADd9g1WXy+f9hZ18vn/YtquI7jOROpL5X43+gm18r8WhqMV7hKP5Zk3SdT72xs/8t+1sGIXSfJ+DIp02uDLObqXn9yOrHs8SULXs5XpxrLpYKUXb952Ss7tN9e49Gl7O0a6z0X0ct6s1KzW68F9Hw8fIs1nqbWx9pVKcopTaWqtf4U7Oz9Dn5eOZnuiXRxXjO2XpuK95VNU54elXgt6ypJ9sHqnv1Unve457EujCV6dLoKmeMnFRlJtQeiTlO6i3e646DbO9sMQrJtS1t8euui1bvY1H7W/ApVcHCSzONna60u96a9Ckcl6+4Xnipb0hrbXjNTjHPBuOqn0srO/CKWWNtLa7rmTDGySabfbd8u86bZvtNgp6LCKN9HeMHxVk9OtFpY7Z734Vb7WVOGrduKeqJnqJgjptcthtq5LtyS7ZS/2GVi68qtW/Sq1nZfHJpu2qtTevWd3idobOjp7vlbv/AAvt0sxYXaGDi/08OrtJ6RWqe67b9SJ6rPhMdI43ZmFq5nH/AOzWT0ypytle9Xcb+DR03s9savTh0cqcoQclJKpLM1a9na+j1W7TTmbdPb94pxppRauvit/lS08SJ7XrzjmioQuuEXL1ZlfqLz+mlekiPcNjH4pRi51MsdOf03+HccF7TY6NZSmoKNpaO1nbc2+V77vxadad6kXOTm9d/da3DmcztrGW+GcUnJt2T3K+6176WX9XUZ8X8rxjXkrFaTqkpvh6BRnL8RBDEx5L87w44pb/AIfP7nqY8vU6qT/EP0svxFb3vs8/uJYl814DtTq2qsvxDOv1eRU6a/Efpf5h2o1bjiepeH9i1HE33R+v0Mrp7cfIZ4x/M+7Qdp3Nnpv5PL/1EYvv0/nl4sQ7E9zmt3EJVmuIDQE11k+ELCxL/GMq3aV7CYxGrHSdviOqvWBSaJ3TTXBctfMjftOB6TrH6QrzjZ29BKRbEalqKL4IiycrjtjETCdXsPjLLK13q3LTRm1W2xCpBXunvas/3uLT5b/E5lIs30MrUiWtLzVuYbF03H95J6dTunp6I1o4+nkzZ46NZrSjfk7Lt1OUoUKklpHvtY0KOz3ZOWmvYYX46/Murj57fTXxtanK36kVLevi0b5abr3fgWMLtGmp520ozSVr3tuRkzoQil8b8UL3mnH+NvLu49+jM544mMaTzzuuow20aCc6Wf4U3OMkm18WuXRa6uRXxO2FCOWnnae9WS0a4Nu638jmltC93vv1JB+/SfFeXqW/BHyrPUTmLeK2pVnbLlp2SWnxS0/me7wMxYNt33t73zJVST1b80EqHWdFOOK+nJyck29ovd31C6B34ehL0L+ZeLF0D5+ZtrJH7u+oboubXkS9Cx+hfWShF0ALpE7pW33GydfoEIvd2C8M+svRpfDZLXndNeFtPESw35oNMUvdn1+Yi50Pb5DkdxjmKn0KrEIiCTiHEWQUA47hhFbJqF7xmOItHoIJDCBCV7zQwYhGc+mkNb7Fevu/OoQjCG0+mRLeWYCEbKfKRbidbu4YREp+EsdwFL6iEXhlZYiTQ3CEWlWCW785BoYRCSmQvf8AnMQhCsrsP3F2P1K0vzxYhBYIhCIQ/9k=" alt="Cà phê sữa">
-                    <h3>Cà phê sữa</h3>
-                    <p>Hài hòa giữa vị đắng của cà phê và ngọt ngào của sữa đặc</p>
-                    <div class="price">25.000đ</div>
-                    <div class="order-controls">
-                        <label>
-                            <input type="checkbox" id="coffeeSua" class="menu-checkbox">
-                            Chọn
-                        </label>
-                        <input type="number" id="qtyCoffeeSua" min="0" value="0" class="qty-input">
-                    </div>
-                </div>
+                <h2 style="color: #6F4E37; border-bottom: 2px solid #6F4E37; padding-bottom: 10px; margin-top: 30px;"><i class="fas fa-phone-alt"></i> Thông tin liên hệ</h2>
+                <p><strong><i class="fas fa-map-marker-alt"></i> Địa chỉ:</strong> Trích Sài, Quận Hồ Tây</p>
+                <p><strong><i class="fas fa-phone"></i> Điện thoại:</strong> 0987388386</p>
+                <p><strong><i class="fas fa-envelope"></i> Email:</strong> coffeehieuhai@gmail.com</p>
+                <p><strong><i class="fas fa-clock"></i> Giờ mở cửa:</strong> 7:00 - 22:00 hàng ngày</p>
                 
-                <!-- Bạc xỉu -->
-                <div class="menu-item">
-                    <img src="data:image/jpeg;base64,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" alt="Bạc xỉu">
-                    <h3>Bạc xỉu</h3>
-                    <p>Nhẹ nhàng với nhiều sữa, thích hợp cho người mới uống cà phê</p>
-                    <div class="price">30.000đ</div>
-                    <div class="order-controls">
-                        <label>
-                            <input type="checkbox" id="bacXiu" class="menu-checkbox">
-                            Chọn
-                        </label>
-                        <input type="number" id="qtyBacXiu" min="0" value="0" class="qty-input">
-                    </div>
+                <h2 style="color: #6F4E37; border-bottom: 2px solid #6F4E37; padding-bottom: 10px; margin-top: 30px;"><i class="fas fa-images"></i> Hình ảnh quán</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Quán cafe" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
+                    <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Không gian quán" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Đồ uống" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nhân viên" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
                 </div>
             </div>
         </div>
-        
-        <button onclick="placeOrder()">ĐẶT HÀNG</button>
-        
-        <div id="orderResult" class="result" style="display: none;">
-            <h3>Thông tin đơn hàng</h3>
-            <p id="customerGreeting"></p>
-            <div id="orderDetails"></div>
-            <div id="orderTotal" class="total"></div>
-            <button onclick="window.print()" class="print-btn">IN HÓA ĐƠN</button>
+
+        <div id="booking" class="page">
+            <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" alt="Coffee Logo" class="header-img">
+            <h1>ĐẶT BÀN COFFEE HIẾU HẢI</h1>
+            
+            <div class="form-group">
+                <label for="customerName"><i class="fas fa-user"></i> Tên khách hàng:</label>
+                <input type="text" id="customerName" placeholder="Nhập tên của bạn">
+            </div>
+            
+            <div class="form-group">
+                <label for="customerPhone"><i class="fas fa-phone"></i> Số điện thoại:</label>
+                <input type="tel" id="customerPhone" placeholder="Nhập số điện thoại">
+            </div>
+            
+            <div class="form-group">
+                <label for="bookingDate"><i class="fas fa-calendar-day"></i> Ngày đặt bàn:</label>
+                <input type="date" id="bookingDate">
+            </div>
+            
+            <div class="form-group">
+                <label for="bookingTime"><i class="fas fa-clock"></i> Giờ đặt bàn:</label>
+                <input type="time" id="bookingTime">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-chair"></i> Chọn bàn:</label>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div style="position: relative;">
+                        <input type="radio" name="table" id="table1" value="1" class="table-radio" style="display: none;">
+                        <label for="table1" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            Bàn 1 (2-4 người)
+                        </label>
+                    </div>
+                    <div style="position: relative;">
+                        <input type="radio" name="table" id="table2" value="2" class="table-radio" style="display: none;">
+                        <label for="table2" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            Bàn 2 (2-4 người)
+                        </label>
+                    </div>
+                    <div style="position: relative;">
+                        <input type="radio" name="table" id="table3" value="3" class="table-radio" style="display: none;">
+                        <label for="table3" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            Bàn 3 (4-6 người)
+                        </label>
+                    </div>
+                    <div style="position: relative;">
+                        <input type="radio" name="table" id="table4" value="4" class="table-radio" style="display: none;">
+                        <label for="table4" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            Bàn 4 (6-8 người)
+                        </label>
+                    </div>
+                    <div style="position: relative;">
+                        <input type="radio" name="table" id="table5" value="5" class="table-radio" style="display: none;">
+                        <label for="table5" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+                            Bàn 5 (8-10 người)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-utensils"></i> Thực đơn:</label>
+                <div class="menu-container">
+                    <div class="menu-item" data-id="1" data-name="Cà phê đen" data-price="20000">
+                        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cà phê đen">
+                        <h3>Cà phê đen</h3>
+                        <p>Đậm đà truyền thống, pha từ hạt Arabica chất lượng</p>
+                        <div class="price">20.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyCoffeeDen" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="2" data-name="Cà phê sữa" data-price="25000">
+                        <img src="https://images.unsplash.com/photo-1534687941688-651ccaafbff8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cà phê sữa">
+                        <h3>Cà phê sữa</h3>
+                        <p>Hài hòa giữa vị đắng của cà phê và ngọt ngào của sữa đặc</p>
+                        <div class="price">25.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyCoffeeSua" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="3" data-name="Bạc xỉu" data-price="30000">
+                        <img src="https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Bạc xỉu">
+                        <h3>Bạc xỉu</h3>
+                        <p>Nhẹ nhàng với nhiều sữa, thích hợp cho người mới uống cà phê</p>
+                        <div class="price">30.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyBacXiu" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="4" data-name="Trà sữa" data-price="35000">
+                        <img src="https://images.unsplash.com/photo-1564322251677-57b6a6d9f7c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Trà sữa">
+                        <h3>Trà sữa</h3>
+                        <p>Trà sữa thơm ngon với nhiều topping hấp dẫn</p>
+                        <div class="price">35.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyTraSua" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="5" data-name="Kem dâu" data-price="25000">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Kem dâu">
+                        <h3>Kem dâu</h3>
+                        <p>Kem mát lạnh với vị dâu tươi ngon</p>
+                        <div class="price">25.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyKemDau" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="6" data-name="Kem socola" data-price="25000">
+                        <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Kem socola">
+                        <h3>Kem socola</h3>
+                        <p>Vị socola đậm đà, thơm ngon</p>
+                        <div class="price">25.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyKemSocola" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="7" data-name="Kem dừa" data-price="25000">
+                        <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Kem dừa">
+                        <h3>Kem dừa</h3>
+                        <p>Vị dừa thơm ngon, mát lạnh</p>
+                        <div class="price">25.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyKemDua" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="8" data-name="Cam ép" data-price="30000">
+                        <img src="https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cam ép">
+                        <h3>Cam ép</h3>
+                        <p>Nước cam tươi nguyên chất, giàu vitamin C</p>
+                        <div class="price">30.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyCamEp" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="9" data-name="Cà phê đậu xanh" data-price="30000">
+                        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cà phê đậu xanh">
+                        <h3>Cà phê đậu xanh</h3>
+                        <p>Kết hợp độc đáo giữa cà phê và đậu xanh</p>
+                        <div class="price">30.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyCoffeeDauXanh" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" data-id="10" data-name="Cà phê sữa dừa" data-price="35000">
+                        <img src="https://images.unsplash.com/photo-1534687941688-651ccaafbff8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cà phê sữa dừa">
+                        <h3>Cà phê sữa dừa</h3>
+                        <p>Cà phê sữa với vị dừa thơm ngon</p>
+                        <div class="price">35.000đ</div>
+                        <div class="order-controls">
+                            <input type="number" id="qtyCoffeeSuaDua" min="0" value="0" class="qty-input" style="width: 70px; padding: 8px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="placeOrder()"><i class="fas fa-calendar-check"></i> ĐẶT BÀN</button>
+            
+            <div id="orderResult" class="result" style="display: none;">
+                <h3><i class="fas fa-receipt"></i> Thông tin đơn hàng</h3>
+                <p id="customerGreeting"></p>
+                <div id="orderDetails"></div>
+                <div id="discountInfo"></div>
+                <div id="orderTotal" class="total"></div>
+                <button onclick="window.print()" class="print-btn"><i class="fas fa-print"></i> IN HÓA ĐƠN</button>
+            </div>
         </div>
-        
-        <footer>
-            <p>Địa chỉ: Trích Sài, Quận Hồ Tây</p>
-            <p>Điện thoại: 0987388386</p>
-            <p>Cảm ơn quý khách!</p>
-        </footer>
+
+        <div id="products" class="page">
+            <h1>QUẢN LÝ SẢN PHẨM</h1>
+            <button class="add-btn" onclick="openProductModal()"><i class="fas fa-plus-circle"></i> Thêm sản phẩm mới</button>
+            <div id="productListContainer">
+                <table id="productsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Mô tả</th>
+                            <th>Ảnh</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="promotions" class="page">
+            <h1>QUẢN LÝ KHUYẾN MÃI</h1>
+            <button class="add-btn" onclick="openPromotionModal()"><i class="fas fa-plus-circle"></i> Thêm khuyến mãi mới</button>
+            <div id="promotionListContainer">
+                <table id="promotionsTable">
+                    <thead>
+                        <tr>
+                            <th>Mã KM</th>
+                            <th>Tên khuyến mãi</th>
+                            <th>Giảm giá (%)</th>
+                            <th>Ngày hết hạn</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="staff" class="page">
+            <h1>QUẢN LÝ NHÂN VIÊN</h1>
+            <button class="add-btn" onclick="openStaffModal()"><i class="fas fa-plus-circle"></i> Thêm nhân viên mới</button>
+            <div id="staffListContainer">
+                <table id="staffTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên nhân viên</th>
+                            <th>Chức vụ</th>
+                            <th>SĐT</th>
+                            <th>Email</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="bills" class="page">
+            <h1>QUẢN LÝ HÓA ĐƠN</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm theo mã hóa đơn, tên khách hàng...">
+                <button class="add-btn" style="width: auto;"><i class="fas fa-filter"></i> Lọc</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã HĐ</th>
+                        <th>Tên khách hàng</th>
+                        <th>Ngày</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#001</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>12/07/2024</td>
+                        <td>150.000đ</td>
+                        <td class="status-active">Đã thanh toán</td>
+                        <td>
+                            <button class="action-btn view-btn"><i class="fas fa-eye"></i> Xem</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#002</td>
+                        <td>Trần Thị B</td>
+                        <td>11/07/2024</td>
+                        <td>85.000đ</td>
+                        <td class="status-active">Đã thanh toán</td>
+                        <td>
+                            <button class="action-btn view-btn"><i class="fas fa-eye"></i> Xem</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="history" class="page">
+            <h1>LỊCH SỬ HOẠT ĐỘNG</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm theo ngày, tên nhân viên...">
+                <button class="add-btn" style="width: auto;"><i class="fas fa-filter"></i> Lọc</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Thời gian</th>
+                        <th>Nhân viên</th>
+                        <th>Hành động</th>
+                        <th>Chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12/07/2024 10:30</td>
+                        <td>Lê Thị C</td>
+                        <td>Thêm</td>
+                        <td>Thêm sản phẩm "Bạc xỉu"</td>
+                    </tr>
+                    <tr>
+                        <td>11/07/2024 15:00</td>
+                        <td>Nguyễn Văn D</td>
+                        <td>Cập nhật</td>
+                        <td>Cập nhật giá "Cà phê sữa"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="statistics" class="page">
+            <h1>THỐNG KÊ DOANH THU</h1>
+            <div class="chart-container">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="stats-overview" style="display: flex; justify-content: space-around; text-align: center; margin-top: 20px;">
+                <div style="padding: 20px; border-radius: 8px; background-color: #e8f5e9;">
+                    <h3 style="color: #2e7d32;">Doanh thu tháng này</h3>
+                    <p style="font-size: 24px; font-weight: bold;">50.000.000đ</p>
+                </div>
+                <div style="padding: 20px; border-radius: 8px; background-color: #e3f2fd;">
+                    <h3 style="color: #1976d2;">Tổng đơn hàng</h3>
+                    <p style="font-size: 24px; font-weight: bold;">350</p>
+                </div>
+                <div style="padding: 20px; border-radius: 8px; background-color: #fff3e0;">
+                    <h3 style="color: #e65100;">Sản phẩm bán chạy</h3>
+                    <p style="font-size: 24px; font-weight: bold;">Cà phê sữa</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeProductModal()">&times;</span>
+            <h2 class="modal-title">Thêm/Sửa Sản Phẩm</h2>
+            <input type="hidden" id="productIndex">
+            <div class="form-group">
+                <label for="productName"><i class="fas fa-tag"></i> Tên sản phẩm:</label>
+                <input type="text" id="productName" placeholder="Ví dụ: Trà sữa trân châu đường đen">
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="productPrice"><i class="fas fa-dollar-sign"></i> Giá:</label>
+                    <input type="number" id="productPrice" min="0" placeholder="Ví dụ: 35000">
+                </div>
+                <div class="form-col">
+                    <label for="productImage"><i class="fas fa-image"></i> URL Ảnh:</label>
+                    <input type="text" id="productImage" placeholder="Ví dụ: https://example.com/image.jpg">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="productDescription"><i class="fas fa-info-circle"></i> Mô tả:</label>
+                <textarea id="productDescription" rows="3" placeholder="Mô tả ngắn về sản phẩm..."></textarea>
+            </div>
+            <div class="form-footer">
+                <button class="action-btn cancel-btn" onclick="closeProductModal()">Hủy</button>
+                <button class="action-btn save-btn" onclick="saveProduct()">Lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="staffModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeStaffModal()">&times;</span>
+            <h2 class="modal-title">Thêm/Sửa Nhân Viên</h2>
+            <input type="hidden" id="staffIndex">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="staffName"><i class="fas fa-user"></i> Tên nhân viên:</label>
+                    <input type="text" id="staffName" placeholder="Tên nhân viên">
+                </div>
+                <div class="form-col">
+                    <label for="staffPosition"><i class="fas fa-user-tie"></i> Chức vụ:</label>
+                    <input type="text" id="staffPosition" placeholder="Chức vụ">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="staffPhone"><i class="fas fa-phone"></i> Số điện thoại:</label>
+                    <input type="tel" id="staffPhone" placeholder="Số điện thoại">
+                </div>
+                <div class="form-col">
+                    <label for="staffEmail"><i class="fas fa-envelope"></i> Email:</label>
+                    <input type="email" id="staffEmail" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-footer">
+                <button class="action-btn cancel-btn" onclick="closeStaffModal()">Hủy</button>
+                <button class="action-btn save-btn" onclick="saveStaff()">Lưu</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="promotionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePromotionModal()">&times;</span>
+            <h2 class="modal-title">Thêm/Sửa Khuyến Mãi</h2>
+            <input type="hidden" id="promotionIndex">
+            <div class="form-group">
+                <label for="promoCode"><i class="fas fa-ticket-alt"></i> Mã khuyến mãi:</label>
+                <input type="text" id="promoCode" placeholder="Ví dụ: GIAM20">
+            </div>
+            <div class="form-group">
+                <label for="promoName"><i class="fas fa-tag"></i> Tên chương trình:</label>
+                <input type="text" id="promoName" placeholder="Ví dụ: Giảm 20% tổng hóa đơn">
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="promoDiscount"><i class="fas fa-percent"></i> Giảm giá (%):</label>
+                    <input type="number" id="promoDiscount" min="0" max="100" placeholder="Ví dụ: 20">
+                </div>
+                <div class="form-col">
+                    <label for="promoExpiry"><i class="fas fa-calendar-times"></i> Ngày hết hạn:</label>
+                    <input type="date" id="promoExpiry">
+                </div>
+            </div>
+            <div class="form-footer">
+                <button class="action-btn cancel-btn" onclick="closePromotionModal()">Hủy</button>
+                <button class="action-btn save-btn" onclick="savePromotion()">Lưu</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Tự động check khi thay đổi số lượng
-        document.querySelectorAll('.qty-input').forEach(input => {
-            input.addEventListener('change', function() {
-                const checkbox = this.previousElementSibling.querySelector('.menu-checkbox');
-                checkbox.checked = this.value > 0;
-            });
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            const productModal = document.getElementById('productModal');
+            const staffModal = document.getElementById('staffModal');
+            const promotionModal = document.getElementById('promotionModal');
 
-        // Tự động set số lượng = 1 khi check
-        document.querySelectorAll('.menu-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const qtyInput = this.closest('.order-controls').querySelector('.qty-input');
-                if (this.checked && qtyInput.value == 0) {
-                    qtyInput.value = 1;
-                } else if (!this.checked) {
-                    qtyInput.value = 0;
-                }
-            });
-        });
+            // Dữ liệu mẫu (mô phỏng dữ liệu từ database)
+            let productsData = [
+                { id: 1, name: "Cà phê đen", price: 20000, desc: "Đậm đà truyền thống", img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" },
+                { id: 2, name: "Cà phê sữa", price: 25000, desc: "Hài hòa vị đắng cà phê và sữa", img: "https://images.unsplash.com/photo-1534687941688-651ccaafbff8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" },
+                { id: 3, name: "Bạc xỉu", price: 30000, desc: "Nhẹ nhàng với nhiều sữa", img: "https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" },
+                { id: 4, name: "Trà sữa", price: 35000, desc: "Trà sữa thơm ngon với topping", img: "https://images.unsplash.com/photo-1564322251677-57b6a6d9f7c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" },
+            ];
 
-        function placeOrder() {
-            // Lấy thông tin khách hàng
-            const customerName = document.getElementById('customerName').value || 'Quý khách';
-            
-            // Lấy thông tin đơn hàng
-            const items = [];
-            let total = 0;
-            
-            // Kiểm tra từng món
-            if (document.getElementById('coffeeDen').checked) {
-                const qty = parseInt(document.getElementById('qtyCoffeeDen').value);
-                if (qty > 0) {
-                    const price = 20000;
-                    const subtotal = price * qty;
-                    items.push({
-                        name: 'Cà phê đen',
-                        qty: qty,
-                        price: price,
-                        subtotal: subtotal
-                    });
-                    total += subtotal;
-                }
-            }
-            
-            if (document.getElementById('coffeeSua').checked) {
-                const qty = parseInt(document.getElementById('qtyCoffeeSua').value);
-                if (qty > 0) {
-                    const price = 25000;
-                    const subtotal = price * qty;
-                    items.push({
-                        name: 'Cà phê sữa',
-                        qty: qty,
-                        price: price,
-                        subtotal: subtotal
-                    });
-                    total += subtotal;
-                }
-            }
-            
-            if (document.getElementById('bacXiu').checked) {
-                const qty = parseInt(document.getElementById('qtyBacXiu').value);
-                if (qty > 0) {
-                    const price = 30000;
-                    const subtotal = price * qty;
-                    items.push({
-                        name: 'Bạc xỉu',
-                        qty: qty,
-                        price: price,
-                        subtotal: subtotal
-                    });
-                    total += subtotal;
-                }
-            }
-            
-            // Hiển thị kết quả
-            if (items.length > 0) {
-                document.getElementById('customerGreeting').textContent = `Xin chào ${customerName}! Đơn hàng của bạn:`;
-                
-                let orderDetailsHTML = '';
-                items.forEach(item => {
-                    orderDetailsHTML += `
-                        <div class="order-item">
-                            <span>${item.name} (${item.qty} x ${item.price.toLocaleString()}đ)</span>
-                            <span>${item.subtotal.toLocaleString()}đ</span>
-                        </div>
-                    `;
+            let staffData = [
+                { id: 1, name: "Nguyễn Văn A", position: "Quản lý", phone: "0912345678", email: "vana@coffee.com" },
+                { id: 2, name: "Lê Thị B", position: "Pha chế", phone: "0987654321", email: "thib@coffee.com" },
+                { id: 3, name: "Trần Văn C", position: "Phục vụ", phone: "0901234567", email: "vanc@coffee.com" },
+            ];
+
+            let promotionsData = [
+                { id: 1, code: "SUMMER20", name: "Giảm 20% mùa hè", discount: 20, expiry: "2025-08-31", status: "active" },
+                { id: 2, code: "COFFEE10", name: "Giảm 10% cho cà phê", discount: 10, expiry: "2024-12-31", status: "inactive" },
+            ];
+
+            // Chuyển trang khi click vào menu
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    pages.forEach(page => page.classList.remove('active'));
+                    const targetPage = document.getElementById(this.dataset.page);
+                    targetPage.classList.add('active');
+
+                    // Gọi hàm render tương ứng khi chuyển trang
+                    if (this.dataset.page === 'products') {
+                        renderProductsTable();
+                    } else if (this.dataset.page === 'staff') {
+                        renderStaffTable();
+                    } else if (this.dataset.page === 'promotions') {
+                        renderPromotionsTable();
+                    } else if (this.dataset.page === 'statistics') {
+                        renderStatisticsChart();
+                    }
                 });
+            });
+
+            // Chức năng Đặt bàn
+            window.placeOrder = function() {
+                const customerName = document.getElementById('customerName').value;
+                const customerPhone = document.getElementById('customerPhone').value;
+                const bookingDate = document.getElementById('bookingDate').value;
+                const bookingTime = document.getElementById('bookingTime').value;
+                const selectedTable = document.querySelector('input[name="table"]:checked');
                 
-                document.getElementById('orderDetails').innerHTML = orderDetailsHTML;
-                document.getElementById('orderTotal').textContent = `Tổng cộng: ${total.toLocaleString()}đ`;
+                if (!customerName || !customerPhone || !bookingDate || !bookingTime || !selectedTable) {
+                    alert("Vui lòng điền đầy đủ thông tin đặt bàn!");
+                    return;
+                }
+
+                const orderDetails = document.getElementById('orderDetails');
+                const orderTotal = document.getElementById('orderTotal');
+                let total = 0;
+                let orderItemsHtml = '';
+
+                const menuItems = document.querySelectorAll('.menu-item');
+                menuItems.forEach(item => {
+                    const qtyInput = item.querySelector('.qty-input');
+                    const qty = parseInt(qtyInput.value);
+                    if (qty > 0) {
+                        const itemName = item.dataset.name;
+                        const itemPrice = parseInt(item.dataset.price);
+                        const itemTotal = qty * itemPrice;
+                        total += itemTotal;
+                        orderItemsHtml += `<div class="order-item">${itemName} x${qty} <span>${itemTotal.toLocaleString('vi-VN')}đ</span></div>`;
+                    }
+                });
+
+                if (total === 0) {
+                    alert("Vui lòng chọn ít nhất một món để đặt!");
+                    return;
+                }
+
+                document.getElementById('customerGreeting').innerHTML = `Xin chào <strong>${customerName}</strong>! Đơn đặt bàn của bạn đã được ghi nhận.`;
+                orderDetails.innerHTML = orderItemsHtml;
+                orderTotal.innerHTML = `Tổng tiền: ${total.toLocaleString('vi-VN')}đ`;
+
                 document.getElementById('orderResult').style.display = 'block';
-                
-                // Cuộn đến kết quả
-                document.getElementById('orderResult').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert('Vui lòng chọn ít nhất một món và số lượng!');
+                window.scrollTo(0, document.body.scrollHeight);
+            };
+
+            // Quản lý Sản phẩm
+            window.openProductModal = function(index = -1) {
+                const modalTitle = document.querySelector('#productModal .modal-title');
+                if (index === -1) {
+                    modalTitle.textContent = "Thêm Sản Phẩm Mới";
+                    document.getElementById('productIndex').value = '';
+                } else {
+                    modalTitle.textContent = "Sửa Thông Tin Sản Phẩm";
+                    const product = productsData[index];
+                    document.getElementById('productIndex').value = index;
+                    document.getElementById('productName').value = product.name;
+                    document.getElementById('productPrice').value = product.price;
+                    document.getElementById('productImage').value = product.img;
+                    document.getElementById('productDescription').value = product.desc;
+                }
+                productModal.style.display = 'block';
+            };
+
+            window.closeProductModal = function() {
+                productModal.style.display = 'none';
+                document.getElementById('productName').value = '';
+                document.getElementById('productPrice').value = '';
+                document.getElementById('productImage').value = '';
+                document.getElementById('productDescription').value = '';
+            };
+
+            window.saveProduct = function() {
+                const index = document.getElementById('productIndex').value;
+                const name = document.getElementById('productName').value;
+                const price = Number(document.getElementById('productPrice').value);
+                const img = document.getElementById('productImage').value;
+                const desc = document.getElementById('productDescription').value;
+
+                if (name && price > 0) {
+                    if (index === '') {
+                        const newId = productsData.length > 0 ? Math.max(...productsData.map(p => p.id)) + 1 : 1;
+                        productsData.push({ id: newId, name, price, desc, img });
+                    } else {
+                        productsData[index] = { ...productsData[index], name, price, desc, img };
+                    }
+                    renderProductsTable();
+                    closeProductModal();
+                } else {
+                    alert("Vui lòng điền đầy đủ tên và giá sản phẩm.");
+                }
+            };
+
+            window.deleteProduct = function(index) {
+                if (confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${productsData[index].name}"?`)) {
+                    productsData.splice(index, 1);
+                    renderProductsTable();
+                }
+            };
+
+            function renderProductsTable() {
+                const tbody = document.querySelector('#productsTable tbody');
+                tbody.innerHTML = '';
+                productsData.forEach((product, index) => {
+                    const row = `
+                        <tr>
+                            <td>${product.id}</td>
+                            <td>${product.name}</td>
+                            <td>${product.price.toLocaleString('vi-VN')}đ</td>
+                            <td>${product.desc}</td>
+                            <td><img src="${product.img}" alt="${product.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"></td>
+                            <td>
+                                <button class="action-btn edit-btn" onclick="openProductModal(${index})"><i class="fas fa-edit"></i> Sửa</button>
+                                <button class="action-btn delete-btn" onclick="deleteProduct(${index})"><i class="fas fa-trash-alt"></i> Xóa</button>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
             }
-        }
+            
+            // Quản lý Nhân viên
+            window.openStaffModal = function(index = -1) {
+                const modalTitle = document.querySelector('#staffModal .modal-title');
+                if (index === -1) {
+                    modalTitle.textContent = "Thêm Nhân Viên Mới";
+                    document.getElementById('staffIndex').value = '';
+                } else {
+                    modalTitle.textContent = "Sửa Thông Tin Nhân Viên";
+                    const staff = staffData[index];
+                    document.getElementById('staffIndex').value = index;
+                    document.getElementById('staffName').value = staff.name;
+                    document.getElementById('staffPosition').value = staff.position;
+                    document.getElementById('staffPhone').value = staff.phone;
+                    document.getElementById('staffEmail').value = staff.email;
+                }
+                staffModal.style.display = 'block';
+            };
+
+            window.closeStaffModal = function() {
+                staffModal.style.display = 'none';
+                document.getElementById('staffName').value = '';
+                document.getElementById('staffPosition').value = '';
+                document.getElementById('staffPhone').value = '';
+                document.getElementById('staffEmail').value = '';
+            };
+
+            window.saveStaff = function() {
+                const index = document.getElementById('staffIndex').value;
+                const name = document.getElementById('staffName').value;
+                const position = document.getElementById('staffPosition').value;
+                const phone = document.getElementById('staffPhone').value;
+                const email = document.getElementById('staffEmail').value;
+
+                if (name && position && phone && email) {
+                    if (index === '') {
+                        const newId = staffData.length > 0 ? Math.max(...staffData.map(s => s.id)) + 1 : 1;
+                        staffData.push({ id: newId, name, position, phone, email });
+                    } else {
+                        staffData[index] = { ...staffData[index], name, position, phone, email };
+                    }
+                    renderStaffTable();
+                    closeStaffModal();
+                } else {
+                    alert("Vui lòng điền đầy đủ thông tin nhân viên.");
+                }
+            };
+            
+            window.deleteStaff = function(index) {
+                if (confirm(`Bạn có chắc chắn muốn xóa nhân viên "${staffData[index].name}"?`)) {
+                    staffData.splice(index, 1);
+                    renderStaffTable();
+                }
+            };
+
+            function renderStaffTable() {
+                const tbody = document.querySelector('#staffTable tbody');
+                tbody.innerHTML = '';
+                staffData.forEach((staff, index) => {
+                    const row = `
+                        <tr>
+                            <td>${staff.id}</td>
+                            <td>${staff.name}</td>
+                            <td>${staff.position}</td>
+                            <td>${staff.phone}</td>
+                            <td>${staff.email}</td>
+                            <td>
+                                <button class="action-btn edit-btn" onclick="openStaffModal(${index})"><i class="fas fa-edit"></i> Sửa</button>
+                                <button class="action-btn delete-btn" onclick="deleteStaff(${index})"><i class="fas fa-trash-alt"></i> Xóa</button>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            }
+
+            // Quản lý Khuyến mãi
+            window.openPromotionModal = function(index = -1) {
+                const modalTitle = document.querySelector('#promotionModal .modal-title');
+                if (index === -1) {
+                    modalTitle.textContent = "Thêm Khuyến Mãi Mới";
+                    document.getElementById('promotionIndex').value = '';
+                } else {
+                    modalTitle.textContent = "Sửa Khuyến Mãi";
+                    const promo = promotionsData[index];
+                    document.getElementById('promotionIndex').value = index;
+                    document.getElementById('promoCode').value = promo.code;
+                    document.getElementById('promoName').value = promo.name;
+                    document.getElementById('promoDiscount').value = promo.discount;
+                    document.getElementById('promoExpiry').value = promo.expiry;
+                }
+                promotionModal.style.display = 'block';
+            };
+
+            window.closePromotionModal = function() {
+                promotionModal.style.display = 'none';
+                document.getElementById('promoCode').value = '';
+                document.getElementById('promoName').value = '';
+                document.getElementById('promoDiscount').value = '';
+                document.getElementById('promoExpiry').value = '';
+            };
+
+            window.savePromotion = function() {
+                const index = document.getElementById('promotionIndex').value;
+                const code = document.getElementById('promoCode').value;
+                const name = document.getElementById('promoName').value;
+                const discount = Number(document.getElementById('promoDiscount').value);
+                const expiry = document.getElementById('promoExpiry').value;
+
+                if (code && name && discount >= 0 && expiry) {
+                    const now = new Date();
+                    const expiryDate = new Date(expiry);
+                    const status = expiryDate > now ? 'active' : 'inactive';
+                    
+                    if (index === '') {
+                        const newId = promotionsData.length > 0 ? Math.max(...promotionsData.map(p => p.id)) + 1 : 1;
+                        promotionsData.push({ id: newId, code, name, discount, expiry, status });
+                    } else {
+                        promotionsData[index] = { ...promotionsData[index], code, name, discount, expiry, status };
+                    }
+                    renderPromotionsTable();
+                    closePromotionModal();
+                } else {
+                    alert("Vui lòng điền đầy đủ thông tin khuyến mãi.");
+                }
+            };
+            
+            window.deletePromotion = function(index) {
+                if (confirm(`Bạn có chắc chắn muốn xóa khuyến mãi "${promotionsData[index].name}"?`)) {
+                    promotionsData.splice(index, 1);
+                    renderPromotionsTable();
+                }
+            };
+
+            function renderPromotionsTable() {
+                const tbody = document.querySelector('#promotionsTable tbody');
+                tbody.innerHTML = '';
+                promotionsData.forEach((promo, index) => {
+                    const statusClass = promo.status === 'active' ? 'status-active' : 'status-inactive';
+                    const statusText = promo.status === 'active' ? 'Đang hoạt động' : 'Hết hạn';
+                    const row = `
+                        <tr>
+                            <td>${promo.code}</td>
+                            <td>${promo.name}</td>
+                            <td>${promo.discount}%</td>
+                            <td>${promo.expiry}</td>
+                            <td class="${statusClass}">${statusText}</td>
+                            <td>
+                                <button class="action-btn edit-btn" onclick="openPromotionModal(${index})"><i class="fas fa-edit"></i> Sửa</button>
+                                <button class="action-btn delete-btn" onclick="deletePromotion(${index})"><i class="fas fa-trash-alt"></i> Xóa</button>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += row;
+                });
+            }
+
+            // Thống kê
+            function renderStatisticsChart() {
+                const ctx = document.getElementById('myChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7'],
+                        datasets: [{
+                            label: 'Doanh thu (triệu đồng)',
+                            data: [12, 19, 3, 5, 2, 3, 5],
+                            backgroundColor: 'rgba(111, 78, 55, 0.8)',
+                            borderColor: '#6F4E37',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
+```
