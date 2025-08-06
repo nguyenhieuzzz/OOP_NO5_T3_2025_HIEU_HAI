@@ -500,6 +500,31 @@
             display: block;
         }
 
+        /* Thêm CSS cho nút radio đặt bàn */
+        .table-radio {
+            display: none;
+        }
+        .table-label {
+            padding: 15px 25px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block; /* Quan trọng để nhãn chiếm toàn bộ không gian */
+        }
+        .table-radio:checked + .table-label {
+            background-color: #6F4E37;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .table-label:hover {
+            background-color: #e0e0e0;
+        }
+        .table-radio:checked + .table-label:hover {
+            background-color: #5a3c2a;
+        }
+
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-container {
@@ -606,39 +631,8 @@
             </div>
             
             <div class="form-group">
-                <label><i class="fas fa-chair"></i> Chọn bàn:</label>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <div style="position: relative;">
-                        <input type="radio" name="table" id="table1" value="1" class="table-radio" style="display: none;">
-                        <label for="table1" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-                            Bàn 1 (2-4 người)
-                        </label>
-                    </div>
-                    <div style="position: relative;">
-                        <input type="radio" name="table" id="table2" value="2" class="table-radio" style="display: none;">
-                        <label for="table2" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-                            Bàn 2 (2-4 người)
-                        </label>
-                    </div>
-                    <div style="position: relative;">
-                        <input type="radio" name="table" id="table3" value="3" class="table-radio" style="display: none;">
-                        <label for="table3" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-                            Bàn 3 (4-6 người)
-                        </label>
-                    </div>
-                    <div style="position: relative;">
-                        <input type="radio" name="table" id="table4" value="4" class="table-radio" style="display: none;">
-                        <label for="table4" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-                            Bàn 4 (6-8 người)
-                        </label>
-                    </div>
-                    <div style="position: relative;">
-                        <input type="radio" name="table" id="table5" value="5" class="table-radio" style="display: none;">
-                        <label for="table5" class="table-label" style="padding: 15px 25px; background-color: #f1f1f1; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
-                            Bàn 5 (8-10 người)
-                        </label>
-                    </div>
-                </div>
+                <label for="selectedTable"><i class="fas fa-chair"></i> Chọn bàn:</label>
+                <input type="text" id="selectedTable" placeholder="Nhập số bàn (Ví dụ: Bàn 1, Bàn VIP, ...)">
             </div>
             
             <div class="form-group">
@@ -1066,7 +1060,7 @@
                 const customerPhone = document.getElementById('customerPhone').value;
                 const bookingDate = document.getElementById('bookingDate').value;
                 const bookingTime = document.getElementById('bookingTime').value;
-                const selectedTable = document.querySelector('input[name="table"]:checked');
+                const selectedTable = document.getElementById('selectedTable').value;
                 
                 if (!customerName || !customerPhone || !bookingDate || !bookingTime || !selectedTable) {
                     alert("Vui lòng điền đầy đủ thông tin đặt bàn!");
@@ -1076,13 +1070,22 @@
                 const orderDetails = document.getElementById('orderDetails');
                 const orderTotal = document.getElementById('orderTotal');
                 let total = 0;
-                let orderItemsHtml = '';
+                let orderItemsHtml = `
+                    <div class="order-item">Tên khách hàng: <span>${customerName}</span></div>
+                    <div class="order-item">Số điện thoại: <span>${customerPhone}</span></div>
+                    <div class="order-item">Thời gian: <span>${bookingTime} - ${bookingDate}</span></div>
+                    <div class="order-item">Bàn: <span>${selectedTable}</span></div>
+                    <hr style="border-top: 1px dashed #ddd; margin: 15px 0;">
+                    <h4 style="color: #6F4E37;">Chi tiết đồ uống:</h4>
+                `;
 
                 const menuItems = document.querySelectorAll('.menu-item');
+                let hasOrdered = false;
                 menuItems.forEach(item => {
                     const qtyInput = item.querySelector('.qty-input');
                     const qty = parseInt(qtyInput.value);
                     if (qty > 0) {
+                        hasOrdered = true;
                         const itemName = item.dataset.name;
                         const itemPrice = parseInt(item.dataset.price);
                         const itemTotal = qty * itemPrice;
@@ -1091,7 +1094,7 @@
                     }
                 });
 
-                if (total === 0) {
+                if (!hasOrdered) {
                     alert("Vui lòng chọn ít nhất một món để đặt!");
                     return;
                 }
