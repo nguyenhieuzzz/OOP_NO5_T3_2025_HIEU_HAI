@@ -1,6 +1,6 @@
 public class DisruptLecture {
     public static void main(String[] args) {
-        CellPhone noiseMaker = new CellPhone();  // Tạo đối tượng CellPhone
+        CellPhone noiseMaker = new CellPhone();  
         ObnoxiousTune ot = new ObnoxiousTune();  // Tạo đối tượng ObnoxiousTune
 
         noiseMaker.ring(ot);  // gọi phương thức ring() của CellPhone, truyền ObnoxiousTune vào
