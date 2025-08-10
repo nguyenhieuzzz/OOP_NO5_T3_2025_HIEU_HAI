@@ -103,9 +103,68 @@
             border-radius: 50%;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+        .three-column-layout {
+    display: flex;
+    gap: 20px;
+}
+        .column {
+    flex: 1;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+        .column h2 {
+            color: #6F4E37;
+            border-bottom: 2px solid #6F4E37;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .column ul {
+            list-style: none;
+            padding: 0;
+            line-height: 1.8;
+        }
+        .column ul li {
+            margin-bottom: 10px;
+        }
+        .column ul li i {
+            color: #6F4E37;
+            margin-right: 8px;
+        }
+        .column p {
+            margin: 10px 0;
+        }
+        .column .contact-info p {
+            margin: 5px 0;
+        }
+        .column .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .column .gallery img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
         .form-group {
             margin-bottom: 20px;
         }
+        .contact-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+.contact-gallery img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+}
         label {
             display: block;
             margin-bottom: 8px;
@@ -510,7 +569,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s;
-            display: block; /* Quan trọng để nhãn chiếm toàn bộ không gian */
+            display: block;
         }
         .table-radio:checked + .table-label {
             background-color: #6F4E37;
@@ -523,7 +582,6 @@
         .table-radio:checked + .table-label:hover {
             background-color: #5a3c2a;
         }
-
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -554,6 +612,9 @@
                 width: 100%;
                 max-width: none;
             }
+            .three-column-layout {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -580,30 +641,32 @@
             <img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" alt="Coffee Logo" class="header-img">
             <p style="text-align: center; font-size: 18px;">Quán cà phê với không gian ấm cúng và chất lượng phục vụ tốt nhất</p>
             
-            <div style="margin-top: 40px;">
-                <h2 style="color: #6F4E37; border-bottom: 2px solid #6F4E37; padding-bottom: 10px;"><i class="fas fa-info-circle"></i> Giới thiệu</h2>
-                <p>Quán Coffee Hiếu Hải được thành lập năm 2020 với mong muốn mang đến cho khách hàng những trải nghiệm cà phê chất lượng nhất. Chúng tôi tự hào về:</p>
-                <ul style="line-height: 1.8;">
-                    <li><i class="fas fa-check-circle" style="color: #6F4E37;"></i> Nguyên liệu cà phê được tuyển chọn kỹ lưỡng từ các vùng trồng nổi tiếng</li>
-                    <li><i class="fas fa-check-circle" style="color: #6F4E37;"></i> Không gian thoải mái, thân thiện với 5 khu vực bàn riêng biệt</li>
-                    <li><i class="fas fa-check-circle" style="color: #6F4E37;"></i> Dịch vụ chuyên nghiệp, tận tâm từ đội ngũ nhân viên được đào tạo bài bản</li>
-                    <li><i class="fas fa-check-circle" style="color: #6F4E37;"></i> Giá cả hợp lý cùng nhiều chương trình khuyến mãi hấp dẫn</li>
-                </ul>
-                
-                <h2 style="color: #6F4E37; border-bottom: 2px solid #6F4E37; padding-bottom: 10px; margin-top: 30px;"><i class="fas fa-phone-alt"></i> Thông tin liên hệ</h2>
-                <p><strong><i class="fas fa-map-marker-alt"></i> Địa chỉ:</strong> Trích Sài, Quận Hồ Tây</p>
-                <p><strong><i class="fas fa-phone"></i> Điện thoại:</strong> 0987388386</p>
-                <p><strong><i class="fas fa-envelope"></i> Email:</strong> coffeehieuhai@gmail.com</p>
-                <p><strong><i class="fas fa-clock"></i> Giờ mở cửa:</strong> 7:00 - 22:00 hàng ngày</p>
-                
-                <h2 style="color: #6F4E37; border-bottom: 2px solid #6F4E37; padding-bottom: 10px; margin-top: 30px;"><i class="fas fa-images"></i> Hình ảnh quán</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
-                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Quán cafe" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
-                    <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Không gian quán" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
-                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Đồ uống" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
-                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nhân viên" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;">
-                </div>
-            </div>
+            <div class="three-column-layout">
+    <div class="column">
+        <h2><i class="fas fa-info-circle"></i> Giới thiệu</h2>
+        <p>Quán Coffee Hiếu Hải được thành lập năm 2020 với mong muốn mang đến cho khách hàng những trải nghiệm cà phê chất lượng nhất. Chúng tôi tự hào về:</p>
+        <ul>
+            <li><i class="fas fa-check-circle"></i> Nguyên liệu cà phê được tuyển chọn kỹ lưỡng từ các vùng trồng nổi tiếng</li>
+            <li><i class="fas fa-check-circle"></i> Không gian thoải mái, thân thiện với 5 khu vực bàn riêng biệt</li>
+            <li><i class="fas fa-check-circle"></i> Dịch vụ chuyên nghiệp, tận tâm từ đội ngũ nhân viên được đào tạo bài bản</li>
+            <li><i class="fas fa-check-circle"></i> Giá cả hợp lý cùng nhiều chương trình khuyến mãi hấp dẫn</li>
+        </ul>
+    </div>
+    <div class="column">
+        <h2><i class="fas fa-phone-alt"></i> Thông tin liên hệ</h2>
+        <div class="contact-info">
+            <p><strong><i class="fas fa-map-marker-alt"></i> Địa chỉ:</strong> Trích Sài, Quận Hồ Tây</p>
+            <p><strong><i class="fas fa-phone"></i> Điện thoại:</strong> 0987388386</p>
+            <p><strong><i class="fas fa-envelope"></i> Email:</strong> coffeehieuhai@gmail.com</p>
+            <p><strong><i class="fas fa-clock"></i> Giờ mở cửa:</strong> 7:00 - 22:00 hàng ngày</p>
+        </div>
+        <!-- Thêm phần ảnh chia 2 cột -->
+        <div class="contact-gallery">
+            <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Không gian quán">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nhân viên">
+        </div>
+    </div>
+</div>
         </div>
 
         <div id="booking" class="page">
@@ -1366,4 +1429,3 @@
     </script>
 </body>
 </html>
-```
