@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.servingwebcontent.controller.KhachHang;
+import com.example.servingwebcontent.controller.QuanLyKhachHang;
 
 @Controller
 public class GreetingController {
@@ -32,7 +32,7 @@ public class GreetingController {
 	@GetMapping("/khachHang")
 	public String khachHang(@RequestParam(name="maKhachHang", required=false, defaultValue="KH001") String maKhachHang, Model model) {
 		// Simulate fetching customer data
-		KhachHang kh = new KhachHang("4152", "Nguyen Van A", "0123456789", "26267");
+		QuanLyKhachHang kh = new QuanLyKhachHang("4152", "Nguyen Van A", "0123456789", "26267");
 		model.addAttribute("khachHang", kh);
 		System.out.println("Customer request received with ID: " + maKhachHang);
 		return "khachHang";

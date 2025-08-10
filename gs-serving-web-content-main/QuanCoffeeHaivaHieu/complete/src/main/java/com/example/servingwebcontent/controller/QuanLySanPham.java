@@ -1,12 +1,12 @@
 package com.example.servingwebcontent.controller;
-public class SanPham {
+public class QuanLySanPham {
     private String maSanPham; 
     private String tenSanPham;
     private String loai;
     private double giaBan;
     private boolean trangThai;
 
-    public SanPham(String maSanPham, String tenSanPham, String loai, double giaBan, boolean trangThai) { // Cập nhật constructor
+    public QuanLySanPham(String maSanPham, String tenSanPham, String loai, double giaBan, boolean trangThai) { // Cập nhật constructor
         this.maSanPham = maSanPham; 
         this.tenSanPham = tenSanPham;
         this.loai = loai;

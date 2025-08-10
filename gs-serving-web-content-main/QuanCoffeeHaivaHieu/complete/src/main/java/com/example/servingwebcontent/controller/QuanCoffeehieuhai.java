@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 
 public class QuanCoffeehieuhai {
-    private static List<SanPham> menu = new ArrayList<>();
-    private static List<KhachHang> dsKhachHang = new ArrayList<>();
-    private static List<GiaoDich> dsGiaoDich = new ArrayList<>();
+    private static List<QuanLySanPham> menu = new ArrayList<>();
+    private static List<QuanLyKhachHang> dsKhachHang = new ArrayList<>();
+    private static List<QuanLyGiaoDich> dsGiaoDich = new ArrayList<>();
     private static Scanner sc = new Scanner(System.in);
 
     public static void test() {
@@ -50,11 +50,11 @@ public class QuanCoffeehieuhai {
 
     private static void khoiTaoDuLieuMau() {
         
-        menu.add(new SanPham("CF01", "Cafe Đen", "Đồ uống", 20000, true));
-        menu.add(new SanPham("CF02", "Cafe Sữa", "Đồ uống", 25000, true));
+        menu.add(new QuanLySanPham("CF01", "Cafe Đen", "Đồ uống", 20000, true));
+        menu.add(new QuanLySanPham("CF02", "Cafe Sữa", "Đồ uống", 25000, true));
         
         
-        dsKhachHang.add(new KhachHang("KH01", "Nguyễn Văn A", "0912345678", "Vàng"));
+        dsKhachHang.add(new QuanLyKhachHang("KH01", "Nguyễn Văn A", "0912345678", "Vàng"));
     }
 
     private static void quanLySanPham() {
@@ -79,7 +79,7 @@ public class QuanCoffeehieuhai {
             System.out.print("Nhập giá bán: ");
             double gia = sc.nextDouble();
             
-            menu.add(new SanPham(maSP, tenSP, loai, gia, true));
+            menu.add(new QuanLySanPham(maSP, tenSP, loai, gia, true));
             System.out.println("Đã thêm sản phẩm thành công!");
         } else {
             System.out.println("\n=== MENU HIỆN CÓ ===");
@@ -109,7 +109,7 @@ public class QuanCoffeehieuhai {
             System.out.print("Nhập hạng thành viên: ");
             String hang = sc.nextLine();
             
-            dsKhachHang.add(new KhachHang(maKH, tenKH, sdt, hang));
+            dsKhachHang.add(new QuanLyKhachHang(maKH, tenKH, sdt, hang));
             System.out.println("Đã thêm khách hàng thành công!");
         } else {
             System.out.print("Nhập SĐT cần tìm: ");
@@ -138,7 +138,7 @@ public class QuanCoffeehieuhai {
         System.out.print("Nhập mã giao dịch: ");
         String maGD = sc.nextLine();
         
-        GiaoDich gd = new GiaoDich(maGD, maKH);
+        QuanLyGiaoDich gd = new QuanLyGiaoDich(maGD, maKH);
         
         while (true) {
             System.out.println("\n=== MENU ===");

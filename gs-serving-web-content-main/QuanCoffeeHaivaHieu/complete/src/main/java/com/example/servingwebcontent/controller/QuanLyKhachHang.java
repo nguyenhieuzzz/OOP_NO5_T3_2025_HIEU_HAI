@@ -1,5 +1,5 @@
 package com.example.servingwebcontent.controller;
-public class KhachHang {
+public class QuanLyKhachHang {
     //  Thuộc tính (được đóng gói)
     private String maKhachHang;
     private String hoTen;
@@ -7,7 +7,7 @@ public class KhachHang {
     private String hangThanhVien;
 
     //  Hàm tạo (Constructor)
-    public KhachHang(String ma, String ten, String sdt, String hang) {
+    public QuanLyKhachHang(String ma, String ten, String sdt, String hang) {
         maKhachHang = ma;
         hoTen = ten;
         soDienThoai = sdt;

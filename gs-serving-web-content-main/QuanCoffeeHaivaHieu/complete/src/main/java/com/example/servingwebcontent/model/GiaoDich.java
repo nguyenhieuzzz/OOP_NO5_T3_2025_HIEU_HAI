@@ -1,47 +1,61 @@
-package com.example.servingwebcontent.controller;
+package com.example.servingwebcontent.model;
+
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class GiaoDich {
     private String maGiaoDich;
     private String maKhachHang;
     private List<SanPham> danhSachSanPham;
 
-    // Constructor: Khởi tạo giao dịch với mã giao dịch và mã khách hàng
+    // Constructor mặc định
+    public GiaoDich() {
+        this.danhSachSanPham = new ArrayList<>();
+    }
+
+    // Constructor đầy đủ
     public GiaoDich(String maGiaoDich, String maKhachHang) {
         this.maGiaoDich = maGiaoDich;
         this.maKhachHang = maKhachHang;
         this.danhSachSanPham = new ArrayList<>();
     }
 
-    // Getter cho mã giao dịch
+    // Getter và Setter
     public String getMaGiaoDich() {
         return maGiaoDich;
     }
 
-    // Getter cho mã khách hàng
+    public void setMaGiaoDich(String maGiaoDich) {
+        this.maGiaoDich = maGiaoDich;
+    }
+
     public String getMaKhachHang() {
         return maKhachHang;
     }
 
-    // Getter cho danh sách sản phẩm
+    public void setMaKhachHang(String maKhachHang) {
+        this.maKhachHang = maKhachHang;
+    }
+
     public List<SanPham> getDanhSachSanPham() {
         return danhSachSanPham;
     }
 
-    // Thêm một sản phẩm vào danh sách
+    public void setDanhSachSanPham(List<SanPham> danhSachSanPham) {
+        this.danhSachSanPham = danhSachSanPham;
+    }
+
+    // Thêm sản phẩm
     public void themSanPham(SanPham sp) {
         danhSachSanPham.add(sp);
     }
 
-    // Xoá sản phẩm theo tên (không phân biệt hoa thường)
+    // Xóa sản phẩm theo tên
     public boolean xoaSanPham(String tenSP) {
         return danhSachSanPham.removeIf(sp -> sp.getTenSanPham().equalsIgnoreCase(tenSP));
     }
 
-    // Sửa giá bán của sản phẩm theo tên (không phân biệt hoa, thường)
+    // Sửa giá sản phẩm
     public boolean suaGiaSanPham(String tenSP, double giaMoi) {
         for (SanPham sp : danhSachSanPham) {
             if (sp.getTenSanPham().equalsIgnoreCase(tenSP)) {
@@ -49,10 +63,10 @@ public class GiaoDich {
                 return true;
             }
         }
-        return false; 
+        return false;
     }
 
-    // Tính tổng tiền của toàn bộ sản phẩm trong giao dịch
+    // Tính tổng tiền
     public double getTongTien() {
         double tong = 0;
         for (SanPham sp : danhSachSanPham) {
@@ -61,7 +75,6 @@ public class GiaoDich {
         return tong;
     }
 
-    // Trả về chuỗi mô tả chi tiết của giao dịch
     @Override
     public String toString() {
         return "GiaoDich{" +
