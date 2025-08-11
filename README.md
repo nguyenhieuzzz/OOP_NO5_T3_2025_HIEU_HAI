@@ -11,7 +11,8 @@
 
 # Sơ đồ
 <img src='anh/Untitled.jpg'>
-
+### sơ đồ 
+<img src = "picture/giao dịch.png">
 
 Khách hàng
 sản phẩn 
