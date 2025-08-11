@@ -11,8 +11,21 @@
 
 # Sơ đồ
 <img src='anh/Untitled.jpg'>
-### sơ đồ 
-<img src = "picture/giaodịch.png">
+
+### Sơ đồ giao dịch 
+<img src = "anh/giao dịch.png">
+
+### sơ đồ sản phẩm 
+<img src = "anh/sản phẩm.png">
+
+### sơ đồ khách hàng 
+<img src = "anh/khách hàng.png">
+
+### sơ đồ khuyến mại 
+<img src = "anh/khuyến mại.png">
+
+### sơ đồ hóa đơn
+<img src = "anh/hóa đơn.png">
 
 Khách hàng
 sản phẩn 
