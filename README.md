@@ -12,7 +12,7 @@
 # Sơ đồ
 <img src='anh/Untitled.jpg'>
 ### sơ đồ 
-<img src = "picture/giao dịch.png">
+<img src = "picture/giaodịch.png">
 
 Khách hàng
 sản phẩn 
