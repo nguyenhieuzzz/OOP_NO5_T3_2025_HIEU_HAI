@@ -8,19 +8,16 @@ public class GiaoDich {
     private String maKhachHang;
     private List<SanPham> danhSachSanPham;
 
-    // Constructor mặc định
     public GiaoDich() {
         this.danhSachSanPham = new ArrayList<>();
     }
 
-    // Constructor đầy đủ
     public GiaoDich(String maGiaoDich, String maKhachHang) {
         this.maGiaoDich = maGiaoDich;
         this.maKhachHang = maKhachHang;
         this.danhSachSanPham = new ArrayList<>();
     }
 
-    // Getter và Setter
     public String getMaGiaoDich() {
         return maGiaoDich;
     }
@@ -45,17 +42,14 @@ public class GiaoDich {
         this.danhSachSanPham = danhSachSanPham;
     }
 
-    // Thêm sản phẩm
     public void themSanPham(SanPham sp) {
         danhSachSanPham.add(sp);
     }
 
-    // Xóa sản phẩm theo tên
     public boolean xoaSanPham(String tenSP) {
         return danhSachSanPham.removeIf(sp -> sp.getTenSanPham().equalsIgnoreCase(tenSP));
     }
 
-    // Sửa giá sản phẩm
     public boolean suaGiaSanPham(String tenSP, double giaMoi) {
         for (SanPham sp : danhSachSanPham) {
             if (sp.getTenSanPham().equalsIgnoreCase(tenSP)) {
@@ -66,7 +60,6 @@ public class GiaoDich {
         return false;
     }
 
-    // Tính tổng tiền
     public double getTongTien() {
         double tong = 0;
         for (SanPham sp : danhSachSanPham) {

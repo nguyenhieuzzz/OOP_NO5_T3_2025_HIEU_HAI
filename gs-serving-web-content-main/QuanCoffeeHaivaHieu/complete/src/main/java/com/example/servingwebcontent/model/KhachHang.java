@@ -6,11 +6,9 @@ public class KhachHang {
     private String soDienThoai;
     private String hangThanhVien;
 
-    // Constructor mặc định (bắt buộc để Spring Boot hoặc JSON khởi tạo đối tượng)
     public KhachHang() {
     }
 
-    // Constructor đầy đủ
     public KhachHang(String maKhachHang, String hoTen, String soDienThoai, String hangThanhVien) {
         this.maKhachHang = maKhachHang;
         this.hoTen = hoTen;
@@ -51,7 +49,6 @@ public class KhachHang {
         this.hangThanhVien = hangThanhVien;
     }
 
-    // Hiển thị thông tin khách hàng
     @Override
     public String toString() {
         return "KhachHang{" +

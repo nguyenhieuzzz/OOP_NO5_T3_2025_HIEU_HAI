@@ -5,13 +5,13 @@ public class SanPham {
     private String tenSanPham;
     private String loai;
     private double giaBan;
-    private boolean trangThai; // true = đang bán, false = ngừng bán
+    private boolean trangThai; 
 
-    // Constructor mặc định
+    
     public SanPham() {
     }
 
-    // Constructor đầy đủ
+    
     public SanPham(String maSanPham, String tenSanPham, String loai, double giaBan, boolean trangThai) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
@@ -20,7 +20,7 @@ public class SanPham {
         this.trangThai = trangThai;
     }
 
-    // Getter & Setter
+    
     public String getMaSanPham() {
         return maSanPham;
     }
@@ -61,7 +61,7 @@ public class SanPham {
         this.trangThai = trangThai;
     }
 
-    // Hiển thị thông tin sản phẩm
+    
     @Override
     public String toString() {
         return "SanPham{" +
