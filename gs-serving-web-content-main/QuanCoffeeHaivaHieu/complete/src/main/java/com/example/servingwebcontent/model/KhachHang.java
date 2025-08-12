@@ -16,7 +16,6 @@ public class KhachHang {
         this.hangThanhVien = hangThanhVien;
     }
 
-    // Getter & Setter
     public String getMaKhachHang() {
         return maKhachHang;
     }
